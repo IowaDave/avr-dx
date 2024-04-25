@@ -20,9 +20,23 @@ The following links gave useful information at the time of access in April 2024:
 
 A useful version of the avrdude utility was obtained by adding the Arduino Nano Every board to my Arduino IDE with the Boards Manager.
 
-The AVR Dx boards were added to the IDE also, from [https://github.com/SpenceKonde/DxCore/tree/master](https://github.com/SpenceKonde/DxCore/tree/master).
+The AVR Dx boards were added to the IDE also, from [https://github.com/SpenceKonde/DxCore/tree/master](https://github.com/SpenceKonde/DxCore/tree/master). 
 
-The official data sheet and the silicon errata complete the set of essential documentation. They can be accessed from the product page on the manufacturer's web site.
+Programs can be written in "Arduino language" for the Dx chips after installing the board files in the IDE.
+
+Alternatively, code can control the device by reading from and writing to the internal hardware registers directly. This is called "bare-metal" coding. 
+
+Advantages for bare-metal coding include access to more powerful features of the controller that pre-built "Arduino" functions do not implement. 
+
+Arduino IDE places the Dx board files in the "Arduino15" folder on the local computer. For each, different model, there is a unique header file that readers should know how to find. For example on my Mac, the relevant header for the AVR64DD28 is found at 
+
+<blockquote>/Users/<me>/Library/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino7/avr/include/avr/ioavr64dd28.h</blockquote>
+
+It is not necessary for user code to #include that file in a program. The IDE takes care of it automatically after selecting the device in the IDE's Tools menu.
+
+What makes the header file so useful is that it spells out the actual names to use when writing bare metal code. I keep it open in a text editor for frequent reference. The header implements the naming rules for registers and the data stored in them, as given in the product data sheet.
+
+The official data sheet and the silicon errata complete a minimal set of essential documentation. They can be accessed from the product page on the manufacturer's web site.
 
 Data sheet: [https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/AVR64DD32-28-Complete-DataSheet-DS40002315.pdf](https://ww1.microchip.com/downloads/aemDocuments/documents/MCU08/ProductDocuments/DataSheets/AVR64DD32-28-Complete-DataSheet-DS40002315.pdf)
 
