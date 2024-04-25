@@ -30,11 +30,9 @@ Advantages for bare-metal coding include access to more powerful features of the
 
 Arduino IDE places the Dx board files in the "Arduino15" folder on the local computer. For each, different model, there is a unique header file that readers should know how to find. For example on my Mac, the relevant header for the AVR64DD28 is found at 
 
-<blockquote>
-
+```
 /Users/david/Library/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino7/avr/include/avr/ioavr64dd28.h
-
-</blockquote>
+```
 
 (By the way, there is not a typo in the file path. It really does say "azduino". But it compiles correctly, so we little ponies must wear that saddle quietly.)
 
