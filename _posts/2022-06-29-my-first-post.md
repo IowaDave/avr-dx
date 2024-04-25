@@ -2,7 +2,7 @@
 description: My First Post
 ---
 
-This is my first post.
+This updates my first post.
 
 <ul>
   {% for post in site.posts %}
