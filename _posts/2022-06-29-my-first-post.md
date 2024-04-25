@@ -8,7 +8,7 @@ This is my first post.
   {% for post in site.posts %}
     <li>
       <h2>
-        <a href="{{ post.url }}"       
+        <a href="{{site.baseurl}}{{ post.url }}"       
         {% if post.title == page.title %}
            style="color: black;"
         {% endif %}>{{ post.title }}
