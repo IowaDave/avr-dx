@@ -10,6 +10,3 @@
     </li>
   {% endfor %}
 </ul>
-
-# My stuff
-More stuff
