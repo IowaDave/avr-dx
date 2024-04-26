@@ -1,6 +1,5 @@
-# test-git
-Playground for learning to clone and push.
+# AVR-Dx
 
-I edit this file using ReTExt on a Chromebook.
+Presenting a blog about using the new AVR Dx series of controllers.
 
-This edit is being made in the branch named 'edits' on my local clone of this repository.
+Read it here: [iowadave.github.io/avr-dx](iowadave.github.io/avr-dx)
