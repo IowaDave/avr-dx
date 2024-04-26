@@ -43,3 +43,26 @@ The 8-bit AVRs give code writers straightforward, direct access to their hardwar
 Even an uneducated amateur like me can learn enough from the data sheet and the device header file to write an instruction like that.
 
 Plus, learning how to tell the hardware, myself, in my own way, what I want it to do is what I call Fun. Which makes me weird, I admit. Deal with it.
+
+
+### Other Posts in this Blog 
+
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <h4>
+        <a href="{{site.baseurl}}{{ post.url }}"       
+        {% if post.title == page.title %}
+           style="color: black;"
+        {% endif %}>{{ post.title }}
+        </a>
+        
+        {% if post.title == page.title %}
+          &nbsp; << You are here.
+        {% endif %}
+        
+      </h4>
+    </li>
+  {% endfor %}
+</ul>
+

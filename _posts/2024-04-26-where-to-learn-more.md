@@ -15,3 +15,26 @@ For background and overview of all the AVRs, see also another of Spence Konde's 
 Like all products made by humans, these Dx chips might not do everything their manufacturer says it wants them to do. It's worthwhile to read the Silicon Errata document. Pay attention to any clarifying language in the data sheet also.
 
 Finally, Microchip publishes a very large number of feature-focused "Technical Briefs". Sometimes I find them very helpful. I leave the finding of those documents as homework for the intrepid reader.
+
+
+### Other Posts in this Blog 
+
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <h4>
+        <a href="{{site.baseurl}}{{ post.url }}"       
+        {% if post.title == page.title %}
+           style="color: black;"
+        {% endif %}>{{ post.title }}
+        </a>
+        
+        {% if post.title == page.title %}
+          &nbsp; << You are here.
+        {% endif %}
+        
+      </h4>
+    </li>
+  {% endfor %}
+</ul>
+
