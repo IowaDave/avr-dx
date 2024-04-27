@@ -80,7 +80,7 @@ Copy and paste the name into your code to avoid the risk of mistyping it.
 
 ### How the Header File Is Organized
 
-All definitions of a certain kind are grouped together.
+All definitions of a certain kind are grouped together and appear, by group, in the following order.
 
 <ol type="A">
   <li>A few preliminary, generic definitions</li>
@@ -110,15 +110,20 @@ All definitions of a certain kind are grouped together.
                  <li>_gc denotes a numeric constant that can be represented within the number of bits making up a certain bitfield.</li>
              </ul>
          </p>
-         <p> You will see the <code>SFR_MEM8(some_address)</code> macro often in this section. It is explained in <a href="#note-b-decoding-the-sfrmem8-macro">Note B</a>, below.
+         <p> You will see the <code>SFR_MEM8(some_address)</code> macro often in this section. It is explained in <a href="#note-b-decoding-the-sfrmem8-macro">Note B</a>, below.</p>
       </li>
   <li>Interrupt Vector Definitions<br>
        <p> These names are defined for use with the ISR() macro. That is another topic for another post.</p>
   </li>
+
 </ol>
 
 
-My critique of this organizational plan is that it sends a code writer  on a scavenger hunt throughout the file, from one end to the other, when working with a single, particular I/O module.
+
+
+
+
+My critique of this organizational plan is that it sends a code writer on a scavenger hunt throughout the file, from one end to the other, when working with a single, particular I/O module.
 
 An alternative plan would take each module in turn and define everything for that module together in one section.
 
