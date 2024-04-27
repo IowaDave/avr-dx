@@ -149,8 +149,8 @@ C++ statements like that are best unravelled from right to left. Let's take it a
 
 * ```0x0400``` is an address in the data memory of the controller. This one is specified in **Table 9-1 Peripheral Address Map** of the data sheet for the I/O module named PORTA. It is just literally copied over from there into the header file.
 
-* ```(PORT_t *)``` is C/C++ syntax for *typecasting* the number appearing to the right of it as a pointer. In this case, it is a pointer to a block of memory that is to be understood as a struct of type PORT_t.<br>
-<br>If you stop there and assign the result to the variable named PORTA it would return the address, 0x0400.<br><br>However, what we want to see is the *contents* of the memory at that address.
+* ```(PORT_t *)``` is C/C++ syntax for *typecasting* the value appearing to the right of it. In this case, it typecasts 0x0400 as a pointer to a block of memory to be understood as a struct of type PORT_t.<br>
+<br>If you stop there and assign the result to the variable named PORTA it would return only the address, 0x0400.<br><br>However, what we want is to see through the pointer into the *contents* of the memory at that address.
 
 * To our aid comes now another asterisk that *dereferences* the pointer.<br><br>Dereferencing a pointer exposes the contents of the memory to which it points.
 
