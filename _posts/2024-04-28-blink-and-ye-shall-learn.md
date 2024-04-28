@@ -249,7 +249,9 @@ It becomes the code writer's responsibility to enable or disable interrupts and 
 
 Lines 90, 91 and 97 take care of the business. 
 
-There is one more difference regarding interrupts. Peripherals which can flag two or more, different reasons to interrupt may be constrained to activate only one, shared ISR. The TCB0 is an example. It is capable of flagging both a "capture" and an "overflow" interrupt.
+There is one more difference regarding interrupts. Peripherals which can flag two or more, different reasons to interrupt may be constrained to activate only one, shared ISR. The TCB0 is an example. 
+
+It is capable of flagging both a "capture" and an "overflow" interrupt. Yet, as line 87 indicates, TCB0 is given only a single ISR. It is a limitation burned by lasers onto the very silicon. 
 
 For such peripherals, the ISR must determine which interrupt flag to act upon. This program avoids the problem by enabling only the "capture" interrupt, in line 57 of the setup() procedure. The ISR would have to poll the available flags if more than one interrupt were enabled in a given peripheral.
 
