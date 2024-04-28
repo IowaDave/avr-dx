@@ -220,7 +220,9 @@ Note that the example program does not use the ```delay()``` feature of Arduino 
 
 ### Helper Registers for I/O Pins
 
-The Dx device PORT peripherals bear a family resemblance to those in the ATmega328P controllers. DIR regulates the pin mode and OUT governs the voltage present on a pin more or less the same way in both products. Setting or clearing bits in those registers will alter the state of the pins connected to them.
+The Dx device PORT peripherals bear a family resemblance to those in the ATmega328P controllers. In both, a PORT peripheral will contain registers named DIR and OUT.
+
+DIR regulates the pin mode and OUT governs the voltage present on a pin more or less the same way in both products. Setting or clearing bits in those registers will alter the state of the pins connected to them.
 
 However, the Dx devices provide additional, "helper" registers giving code writers other, more code-efficient ways to manage the PORT pins.
 
@@ -229,7 +231,9 @@ However, the Dx devices provide additional, "helper" registers giving code write
 
 Lines 65, 66 and 95 use some of the new helper registers.
 
-In fact the I/O pins on a Dx are used in many more ways compared to those on the ATmega328P. To manage such versatile beasts, Microchip added more registers to the Dx PORT group. For example, each individual pin has a Pin Control register.
+In fact the I/O pins on a Dx must serve many more peripherals compared to those on the ATmega328P. To manage such versatile demands, Microchip added more registers to the Dx PORT group. For example, each individual pin has a Pin Control register. 
+
+An added PORTMUX module referees all the different roles a pin might be asked to play. It plays no role here and belongs in a future post.
 
 ### Interrupts Are Handled Very Differently
 
