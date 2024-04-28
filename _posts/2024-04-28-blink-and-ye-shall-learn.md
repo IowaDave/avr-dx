@@ -47,7 +47,7 @@ The classic Arduino *Blink* sketch listed below was running as the photo was tak
     32	}
 </code></pre>
 
-My new example is deliberately written in "bare metal" code to illuminate differences that the Arduino libraries handle internally, beyond a casual user's view. 
+My new example that follows is deliberately written in "bare metal" code to illuminate differences that the Arduino libraries handle internally, beyond a casual user's view. 
 
 <blockquote>
 People are free to discuss the advantages and disadvantages of bare-metal coding compared to reliance on Arduino libraries. Just &mdash; <em>please</em> &mdash; no loud, profane or profound talking, and step outside before the fur begins to fly! &lt;grin&gt;
@@ -205,14 +205,14 @@ But wait. The OSCHF control register is write-protected. The program must notify
 
 Line 32 disables interrupts globally.
 
-Line 33 writes a predefined 8-bit key value into the Configuration Change Protection register, CCP. The hardware will then accept a change to the OSCHF control register within the next four clock cycles. That is why these two lines occur sequentially.
+Line 33 writes a predefined 8-bit key value into the Configuration Change Protection register, CCP. The hardware will then accept a change to the OSCHF control register within the next four clock cycles. Line 34 gets it done.
 
 Line 35 re-enables interrupts globally.
 
 ATmega328P chips do something similar but differently. Their procedure involves writing a specific bit in the target register.
 
 ### New Types of Timer/Counters
-This program takes advantage of a Timer/Counter Type B, which the older '328 chips do not contain. The AVR64DD28 device contains three of these timers, TCB0, TCB1 and TCB2. Additionally it has two, other types of timers, not discussed here.
+This program takes advantage of a Timer/Counter Type B, which the ATmega328P does not contain. The AVR64DD28 device contains three of these timers, TCB0, TCB1 and TCB2. Additionally it has two other types of timers, not discussed here.
 
 Lines 50 through 60 configure TCB0 to generate periodic "capture" interrupts at a rate of 1,000 times per second. Refer to Section 24.3.2 on pages 276-277 of the data sheet.
 
