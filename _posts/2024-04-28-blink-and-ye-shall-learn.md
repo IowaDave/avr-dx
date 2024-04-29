@@ -193,7 +193,19 @@ The other way is to change the speed of the OSCHF itself. Frequencies ranging fr
 
 (There is even a way to boost this chip's speed all the way up to 48 MHz: a future article.)
 
-Line 34 changes the oscillator speed by writing a predefined constant value into an OSCHF Control Register. The value, 0x05, is given in the **Frequency Select** table on page 106 of the data sheet. The device header table defines self-descriptive names all of the choices in that table:
+Line 34 changes the oscillator speed by writing a predefined constant value into *a certain position* within an OSCHF Control Register. 
+
+The **Frequency Select** table on page 106 of the data sheet says to write the value ```0x05```.
+
+There is one more consideration.
+
+Also on that page, as shown in the excerpt below, the data sheet exhibits *the position within the register* where the value should be placed. 
+
+![Excerpt from data sheet]({{site.baseurl}}/images/OSCHFCTRLA.png)
+
+The value ```0x05``` must go into the *bitfield* named ```FRQSEL```, located in bits 5 through 2 of this register. It means we have to shift the value ```0x05``` two bits to the left. One way to write this result in C++ is ```(0x05 << 2)```.
+
+The device header table defines self-descriptive names that way for all of the OSCHF frequency choices:
 
 <pre><code>
 /* Frequency select */
@@ -210,6 +222,22 @@ typedef enum CLKCTRL_FRQSEL_enum
     CLKCTRL_FRQSEL_24M_gc = (0x09<<2)  /* 24 MHz system clock */
 } CLKCTRL_FRQSEL_t;
 </code></pre>
+
+We also have to think about the other two, named bits. A side effect of writing only the FRQSEL value to the register is to write ```0``` into those other bits. 
+
+This simple example program does not care what is written there. However, code writers should always consider all of the bitfields in a register when writing a new value into any part of it.
+
+Suppose we wanted to use a sleep mode to save power, but keep the system clock running. The data sheet tells us that "The OSCHF oscillator will always run in Active, Idle and Standby sleep modes" when the ```RUNSTBY``` bit is set to logic ```1```.  
+
+Setting the frequency and enabling ```RUNSTDBY``` can be combined into a single code statement:
+
+<pre><code>
+CLKCTRL.OSCHFCTRLA = 
+    CLKCTRL_FRQSEL_8M_gc        // write the frequency selection value
+  | CLKCTRL_RUNSTDBY_bm;        // write the run-during-sleep bit
+</code></pre>	
+
+Curious readers may choose to search for the definition of the "CLKCTRL_RUNSTDBY_bm" macro in the device header file and work out how the code that replaces it operates.
 
 ### Writing to Write-protected Registers
 
