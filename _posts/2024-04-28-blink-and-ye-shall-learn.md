@@ -193,11 +193,23 @@ The other way is to change the speed of the OSCHF itself. Frequencies ranging fr
 
 (There is even a way to boost this chip's speed all the way up to 48 MHz: a future article.)
 
-Line 34 changes the oscillator speed by writing a predefined constant value into an OSCHF Control Register. The value, 0x05, is given in the **Frequency Select** table on page 106 of the data sheet. The device header table gives it a self-descriptive name this way:
+Line 34 changes the oscillator speed by writing a predefined constant value into an OSCHF Control Register. The value, 0x05, is given in the **Frequency Select** table on page 106 of the data sheet. The device header table defines self-descriptive names all of the choices in that table:
 
-```
-#define CLKCTRL_FRQSEL_8M_gc = (0x05<<2),  /* 8 MHz system clock */
-```
+<pre><code>
+/* Frequency select */
+typedef enum CLKCTRL_FRQSEL_enum
+{
+    CLKCTRL_FRQSEL_1M_gc = (0x00<<2),  /* 1 MHz system clock */
+    CLKCTRL_FRQSEL_2M_gc = (0x01<<2),  /* 2 MHz system clock */
+    CLKCTRL_FRQSEL_3M_gc = (0x02<<2),  /* 3 MHz system clock */
+    CLKCTRL_FRQSEL_4M_gc = (0x03<<2),  /* 4 MHz system clock (default) */
+    CLKCTRL_FRQSEL_8M_gc = (0x05<<2),  /* 8 MHz system clock */
+    CLKCTRL_FRQSEL_12M_gc = (0x06<<2),  /* 12 MHz system clock */
+    CLKCTRL_FRQSEL_16M_gc = (0x07<<2),  /* 16 MHz system clock */
+    CLKCTRL_FRQSEL_20M_gc = (0x08<<2),  /* 20 MHz system clock */
+    CLKCTRL_FRQSEL_24M_gc = (0x09<<2)  /* 24 MHz system clock */
+} CLKCTRL_FRQSEL_t;
+</code></pre>
 
 ### Writing to Write-protected Registers
 
