@@ -196,7 +196,7 @@ The other way is to change the speed of the OSCHF itself. Frequencies ranging fr
 Line 34 changes the oscillator speed by writing a predefined constant value into an OSCHF Control Register. The value, 0x05, is given in the **Frequency Select** table on page 106 of the data sheet. The device header table gives it a self-descriptive name this way:
 
 ```
-CLKCTRL_FRQSEL_8M_gc = (0x05<<2),  /* 8 MHz system clock */
+#define CLKCTRL_FRQSEL_8M_gc = (0x05<<2),  /* 8 MHz system clock */
 ```
 
 ### Writing to Write-protected Registers
