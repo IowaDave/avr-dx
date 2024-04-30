@@ -142,7 +142,7 @@ Now let us dissect this exotic formulation:
 #define PORTA ( * (PORT_t *) 0x0400) /* I/O Ports */ 
 ```
 
-In EALE (emotionlessly acronymic language of engineering) we might call it DTTP syntax, short for *dereferenced typecast targeted pointer*. 
+In EEL (emotionless engineering language) we might call it DTTP syntax, acronymic for *dereferenced typecast targeted pointer*. 
 
 The class clown in me thinks "magical point-and-shoot" sounds more fun and better describes what it does. The syntax captures a target point in memory with a single line of code.
 
@@ -156,7 +156,7 @@ C++ statements like that are best unravelled from right to left. Let's take it a
 
 * ```0x0400``` is the target address in the data memory of the controller. This one is specified in **Table 9-1 Peripheral Address Map** of the data sheet for the I/O module named PORTA. It is just literally copied over from there into the header file.
 
-* ```(PORT_t *)``` is C/C++ syntax for *typecasting* the value appearing to the right of it. The compiler sees two things when it looks inside the enclosing parentheses to ascertain the code writer's intentions.<br><br> 1. The asterisk ```(...... *)``` in this position typecasts 0x0400 as a pointer. For an 8-bit AVR controller, a pointer is a 16-bit, unsigned number representing an address in memory.<br><br>2. ```(PORT_t *)``` predicts that the block of memory starting at that address will conform to a struct of type PORT_t.<br><br>The compiler makes no attempt to fact-check this declaration; it believes the code writer and will access the memory accordingly.<br>
+* ```(PORT_t *)``` is C/C++ syntax for *typecasting* the value appearing to the right of it. The compiler sees two things when it looks inside the enclosing parentheses to ascertain the code writer's intentions.<br><br>  1. The asterisk ```(...... *)``` in this position typecasts the target address as a pointer. For an 8-bit AVR controller, a pointer is a 16-bit, unsigned number representing an address in memory.<br><br>  2. ```(PORT_t *)``` predicts that the block of memory starting at that address will conform to a struct of type PORT_t.<br><br>The compiler makes no attempt to fact-check this declaration; it believes the code writer and will access the memory accordingly.<br>
 <br>If you stop there and assign the result to the variable named PORTA it would return only the number, 0x0400.<br><br>However, what we want is to *see through the pointer into the contents* of the memory at that address.
 
 * To our aid comes now the leftmost asterisk. It *dereferences* the pointer.<br><br>Dereferencing a pointer exposes the contents of the memory to which it points.
@@ -171,7 +171,7 @@ It is *almost the same thing* as defining PORTA as a global variable, which woul
 PORT_t PORTA;
 ```
 
-but with one important difference. Doing it that way would assign to PORTA a block of meaningless memory at some arbitrary address in SRAM. By contrast, the magical point-and-shoot syntax opens a treasure chest full of powerful hardware registers found at a definite address deep down inside the device.<br><br>How do we know what's in there? The data sheet tells us; that's how. See section **18.4 Register Summary - PORTx** on page 171 and the details for each register that follow on pages 172-193.
+but with one important difference. Doing it that way would assign to PORTA a block of meaningless memory at some arbitrary address in SRAM chosen by the compiler. By contrast, the magical point-and-shoot syntax opens a treasure chest full of powerful hardware registers found at a definite address, chosen by the code writer, located deep down inside the device.<br><br>How do we know what's in there? The data sheet tells us; that's how. See section **18.4 Register Summary - PORTx** on page 171 and the details for each register that follow on pages 172-193.
 
 <H4 id="note-b-decoding-the-sfrmem8-macro">Note B: Decoding the SFR_MEM8() Macro</h4>
 
