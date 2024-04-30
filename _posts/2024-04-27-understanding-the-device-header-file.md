@@ -144,7 +144,7 @@ Now let us dissect this exotic formulation:
 
 In EEL (emotionless engineering language) we might call it DTTP syntax, acronymic for *dereferenced typecast targeted pointer*. 
 
-The class clown in me thinks "magical point-and-shoot" sounds more fun and better describes what it does. The syntax captures a target point in memory with a single line of code.
+The once-upon-a-time high school photographer in me thinks "magical point-and-shoot" sounds more fun and better describes what it does. The syntax captures a target point in memory with a single line of code.
 
 <blockquote>
 It's hard to imagine how truly magical a point-and-shoot camera (like your phone) is if you never had to meet a newspaper deadline with a manual film camera: <em>f</em>-stops, shutter speeds, flashbulbs, hours in a darkroom hoping for the best &mdash; but I reminisce...
