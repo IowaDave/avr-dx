@@ -132,7 +132,7 @@ Available Period lengths are documented on page 367 of the data sheet as shown i
 
 Referring to the Description column in the table, the duration of a Period in the program listed above would be the fraction of a second equal to &lt;cycles&gt; / 32768.
 
-The program employs macros defined in the device header file to represent the different Period names. The macros shift the relevant value into the correct bit position of the targeted field in the PITCTRLA register. Please refer to the data sheet and the header file for a more detailed explanation. 
+The program employs macros defined in the device header file to represent the different periods' Names. The macros shift the corresponding Value into the correct bit position of the targeted field in the PITCTRLA register. Please refer to the data sheet and the header file for a more detailed explanation. 
 
 ### Conventional Timer Interrupts
 
