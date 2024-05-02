@@ -19,7 +19,7 @@ directs pulses 32,768 pulses per second, more or less, into the RTC. OSC32 aims 
 
 (For better accuracy, consider an external 32K crystal. That's to be covered in another article.) 
 
-Incoming pulses increment a 15-bit integer called the Prescaler. The thing simply counts up from 0 to 32767<br>then starts over at 0,<br>repeat<br>repeat<br>repeat. 
+Incoming pulses increment a 15-bit integer called the Prescaler. The thing simply counts up from 0 to 32767<br>then starts over at 0,<br>repeat,<br>&nbsp;&nbsp;repeat,<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;repeat. 
 
 Comes now the Magic.
 
@@ -31,11 +31,11 @@ Each of the 15 bits of the Prescaler simultaneously generates a signal. The sign
 
 3. to activate or to deactivate another peripheral directly, according to the logical level of a selected bit in the Prescaler, without interrupting or in any way involving the CPU.
 
-An example of the third use case, called an "event", could be to have the ADC perform a conversion every 1/4 of a second. The most recent conversion result would then always available be available to read.
+An example of the third use case, called an "event", could be to have the ADC perform a conversion every 1/4 of a second. A program could simply read the ADC.RES register to obtain the conversion result.
 
 Eight of such level events, having different periodic duration, are available to other peripherals through a Event System built into the AVR64DD28.
 
-The hardware makes all of those signals available simultaneously. Program code needs only to turn the RTC on, then select which one or more of the signals to use. To be clear, the different signals can be put to different uses concurrently.
+The hardware makes all of those signals available simultaneously. Program code needs only to turn the RTC on, then select which one or more of the signals to use. To be clear, several of the different signals can be put to different uses concurrently.
 
 Breathtaking! We pause here to catch our breath.
 
@@ -139,6 +139,14 @@ The program employs macros defined in the device header file to represent the di
 The RTC module supports use case #1 with a set of three registers and two available interrupts. Any one of the bits from the prescaler can be selected to update the separate, 16-bit Counter register. User code can configure a "TOP" counter value in the Period register to raise Overflow interrupts at a chosen frequency. Additionally, the Compare register can be programmed to trigger a Compare Match interrupt. 
 
 In this way the RTC resembles a conventional timer/counter, albeit it one clocked in kilohertz rather than in megahertz. The RTC Overflow and Compare Match interrupts can be active during the same time that the PIT is generating a Periodic interrupt having some other, selected frequency.
+
+### Remember to Clear the Interrupt Flag
+
+The AVR Dx controllers do not clear the triggering interrupt flag when entering an interrupt service routine (ISR). The interrupt will remain active until the user's code clears the flag.
+
+This is true for all interrupts, not only for those arising in the RTC module.
+
+As a general rule, I clear the relevant flag right away in an ISR, by writing a "1" to the flag's bit. It may seem strange to "clear" a flag bit by writing a "1" to it, because if you were to read the bit before clearing it you would find it already set to logic level "1". Yet that is what the data sheet instructs to do and experience teaches me that it's the correct technique.
 
 ### Events
 
