@@ -39,6 +39,8 @@ The hardware makes all of those signals available simultaneously. Program code n
 
 Breathtaking! We pause here to catch our breath.
 
+### Periodic Interrupts
+
 This article dwells on use case #2, the periodic interrupts. The following, short program demonstrates using the Periodic Interrupt Timer (PIT) of the RTC to blink an LED at 1/2-second intervals.
 
 <pre><code>
@@ -49,6 +51,13 @@ This article dwells on use case #2, the periodic interrupts. The following, shor
  * Avoid using any Arduino setup code.
  * 
  * Copyright (c) 2024 David G. Sparks  All right reserved.
+ *
+ * The code is designed for compilation with the Arduino IDE.
+ * It uses only names defined in the device data sheet
+ * and in the device header file.
+ * This approach thus avoids Arduino-specific library references,
+ * in hopes that it may be possible to compile with other workflows
+ * having access to the device header file. 
  *
  * This program is free software; you can redistribute it and/or
  * modify it under the terms of the GNU Lesser General Public
@@ -115,15 +124,29 @@ ISR(RTC_PIT_vect)
 }
 </code></pre>
 
-The PIT feature of the RTC module configures a periodic interrupt in a more straightforward way compared to a conventional timer/counter. Merely select a predefined interval from a range of (&nbsp;4&nbsp;/&nbsp;32768&nbsp;) = 122 microseconds up to one second. 
+The PIT feature of the RTC module configures a periodic interrupt in a more straightforward way compared to a conventional timer/counter. Merely select from a set of predefined intervals in a range of (&nbsp;4&nbsp;/&nbsp;32768&nbsp;) = 122 microseconds up to one second. 
+
+Available Period lengths are documented on page 367 of the data sheet as shown in the following excerpt:
+
+![PIT Periods table](../images/PIT_Periods.png)
+
+Referring to the Description column in the table, the duration of a Period in the program listed above would be the fraction of a second equal to &lt;cycles&gt; / 32768.
+
+The program employs macros defined in the device header file to represent the different Period names. The macros shift the relevant value into the correct bit position of the targeted field in the PITCTRLA register. Please refer to the data sheet and the header file for a more detailed explanation. 
+
+### Conventional Timer Interrupts
 
 The RTC module supports use case #1 with a set of three registers and two available interrupts. Any one of the bits from the prescaler can be selected to update the separate, 16-bit Counter register. User code can configure a "TOP" counter value in the Period register to raise Overflow interrupts at a chosen frequency. Additionally, the Compare register can be programmed to trigger a Compare Match interrupt. 
 
 In this way the RTC resembles a conventional timer/counter, albeit it one clocked in kilohertz rather than in megahertz. The RTC Overflow and Compare Match interrupts can be active during the same time that the PIT is generating a Periodic interrupt having some other, selected frequency.
 
+### Events
+
 The third use case belongs all by itself in an article on the Events module.
 
 One more attribute deserves mention in this introductory article about the RTC: it can wake the device up from any sleep mode.
+
+### Sleep
 
 According to the data sheet, 
 
