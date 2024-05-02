@@ -128,7 +128,7 @@ The PIT feature of the RTC module configures a periodic interrupt in a more stra
 
 Available Period lengths are documented on page 367 of the data sheet as shown in the following excerpt:
 
-![PIT Periods table](../images/PIT_Periods.png)
+![PIT Periods table]({{site.baseurl}}images/PIT_Periods.png)
 
 Referring to the Description column in the table, the duration of a Period in the program listed above would be the fraction of a second equal to &lt;cycles&gt; / 32768.
 
