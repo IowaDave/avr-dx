@@ -1,3 +1,9 @@
+---
+description: Provide links to other people's writing about Dx chips
+title: "Where to Learn More about the New AVRs"
+---
+
+
 # Where to Learn More about the New AVRs
 
 Start with the DxCore repository site at Github. Here, for example, is a clear-eyed and candid assessment --- good, bad and ugly --- of both the AVR64DD28 and the way this particular core library handles it:
