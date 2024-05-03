@@ -1,6 +1,6 @@
 # Compare AVR DA DB and DD Controllers
 
-Here is a quick and informal comparison of 64K-flash variants in the AVR models DA, DB and DD microprocessors offered in 28-pin DIP packages. The older model AVR ATmega328P is included also, viewing the Dx lineup as potential successors to it. I limited my inquiries to those devices because I still build with breadboards and through-hole perfboards. 
+Here is a quick and informal comparison of 64K-flash, 28-pin DIP variants in the AVR models DA, DB and DD microprocessors. The older model AVR ATmega328P is included also, viewing the Dx lineup as potential successors to it. I limited my inquiries to those devices because I still build with breadboards and through-hole perfboards. 
 
 I went through this exercise in mid-2023 before purchasing a supply of the DD model. Since that time Microchip has brought forth two more lines: the DU and the EA series, which are not considered here.
 
@@ -11,9 +11,9 @@ Each of the different series sports a unique feature.
 * DB contains op amps.
 * ATmega328P enjoys by far the most extensive body of open-source support among hobbyists.
 
-The DD series has been called "the poverty level" series of the Dx family. I chose them anyway, both because they cost less than the others and because they compare favorably to the older model ATmega328P device familiar from Arduino Uno days. I list the DD model first for each feature regardless of how it compares to the other two series.
+A unique feature of the DD series is to include 14- and 20-pin variants in the catalog. DA and DB start at 28 pins and go up from there. All three of the Dx lineups reviewed here also come in 32-, 48- and 64-pin packaging, allowing additional features that won't fit inside 28 pins. All of these products are sold in surface-mount packages. Alas, only the 28-pin models also come as DIPs.
 
-A unique feature of the DD series is to include 14- and 20-pin variants in the catalog. All three of the Dx lineups reviewed here also come in 32-, 48- and 64-pin packaging, allowing additional features that won't fit inside 28 pins. All of these products are sold in surface-mount packages. Alas, only the 28-pin models also come as DIPs.
+The DD series has been called "the poverty level" series of the Dx family. I chose them anyway, both because they cost less than the others and because they compare favorably to the older model ATmega328P device familiar from Arduino Uno days. I list the DD model first for each feature listed below regardless of how it compares to the other two series.
 
 ### Information Sources
 
@@ -69,13 +69,15 @@ Remark: all of the GPIO pins on these devices can signal an external interrupt i
 
 #### One 16-bit Timer/Counter type A
 * All three Dx devices have one TCA.
-* ATmega328P has one, 16-bit timer of a different type.
+* ATmega328P has a single, 16-bit timer of a different type, called Timer1.
 
-#### Three, 16-bit Timer/Counter type B
+#### 16-bit Timer/Counter type B
 * All three Dx devices provide three instances of the TCB module.
 * ATmega328P has nothing like it.
 
-#### One, 12-bit Timer/Counter type D
+Remark: The TCB timers in a Dx controller support an 8-bit PWM mode. In this mode they compare somewhat to the 8-bit Timer0 of an ATmega328P.
+
+#### 12-bit Timer/Counter type D
 * All three Dx devices provide one TCD.
 * ATmega328P has nothing like it.
 
@@ -83,7 +85,7 @@ Remark: TCD is oriented toward controlling motors.
 
 #### Real Time Counter
 * All three Dx devices provide a 16-bit RTC that can be clocked either with an internal 32K oscillator or with an external crystal.
-* ATmega328P has an 8-bit timer that does RTC only with an external crystal.
+* ATmega328P has one 8-bit timer named Timer2 that can do real time counting only with an external crystal.
 
 #### USART
 * DD - 2
