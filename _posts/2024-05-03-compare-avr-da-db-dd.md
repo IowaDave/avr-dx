@@ -1,3 +1,9 @@
+---
+description: Compare different models of AVR Dx controllers to each other and to ATmega328P
+title: "Compare AVR DA DB and DD Controllers"
+---
+
+
 # Compare AVR DA DB and DD Controllers
 
 Here is a quick and informal comparison of 64K-flash, 28-pin DIP variants in the AVR models DA, DB and DD microprocessors. The older model AVR ATmega328P is included also, viewing the Dx lineup as potential successors to it. I limited my inquiries to those devices because I still build with breadboards and through-hole perfboards. 
