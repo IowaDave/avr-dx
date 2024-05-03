@@ -59,6 +59,14 @@ Remark: If I ever need more than 256 bytes I will reach for one of the other mod
 
 Remark: All can be clocked internally by a calibrated oscillator and externally by a crystal.
 
+#### General Purpose I/O Pins
+* DD - 22
+* DA - 22
+* DB - 21
+* ATmega328P - 22
+
+Remark: all of the GPIO pins on these devices can signal an external interrupt in one way or another.
+
 #### One 16-bit Timer/Counter type A
 * All three Dx devices have one TCA.
 * ATmega328P has one, 16-bit timer of a different type.
@@ -103,21 +111,25 @@ Remark: The DD having two seemed like a nice improvement over the ATmega328P.
 
 Remarks: 
 
-1. The Dx series enable all of the general purpose I/I pins to function as inputs to the ADC. By contrast, ATmega328P allows only eight. 
+1. The Dx series enable all of their GPIO pins to function as inputs to the ADC. By contrast, ATmega328P allows only six in a 28-pin DIP. 
 
-2. The different numbers of "channels" is not as significant as it seems. The DA and DB offer a few more internally generated voltage references.
+2. The difference in numbers of "channels" does not signify much, other than that the DA and DB offer a few more internally generated voltage references.
 
-#### One, 10-bit DAC
+#### 10-bit DAC
 * All three Dx devices provide a single Digital-to-Analog Converter.
 * ATmega328P nas none.
 
 #### Analog Comparator (AC)
-* DD - 1
-* DA - 3
-* DB - 3
-* ATmega328P - 1
+* DD - 1 @ 12 bits
+* DA - 3 @ 12 bits
+* DB - 3 @ 12 bits
+* ATmega328P - 1 @ 10 bits
 
-Remark: I can see advantages for having three analog comparators in the future. But I got used to having only one AC in the ATmega328P controllers, so the DD model at least satisfies the same need.
+Remarks: 
+
+1. The DD at least matches the number of ADCs in the ATmega328P and gives better resolution.
+
+2. I can imagine advantages for having three analog comparators in a future where peripherals talk to one another without engaging the CPU. Meanwhile, back here in the present day, the ADC in a Dx controller can complete a conversion in about 10 microseconds. Software can speedily share the ADC across multiple inputs.
 
 #### Zero-Cross Detector
 * All three of the Dx devices provide a single ZCD.
@@ -125,13 +137,13 @@ Remark: I can see advantages for having three analog comparators in the future. 
 
 Remark: A ZCD signals the change of an alternating voltage to negative from positive and vice versa.
 
-#### Configurable Custom Logic Look-up Table
+#### Configurable Custom Logic Look-up Table (LUT)
 * DD - 4
 * DA - 4
 * DB - 4
 * ATmega328P - none
 
-Remark: I have *got* to learn what these things do.
+Remark: LUTs implement a kind of "logic glue" enabling multiple peripherals to inform a decision by combining a set of inputs, both from outside and from other peripherals inside the microcontroller, without engaging the CPU. I have *got* to learn how these things work.
 
 #### Peripheral Touch Controller
 * DD - none
@@ -155,14 +167,6 @@ All of these devices provide a single WDT
 * ATmega328P - none
 
 Remark: I judged that 6 would suffice for learning purposes.
-
-#### General Purpose I/O Pins
-* DD - 22
-* DA - 22
-* DB - 21
-* ATmega328P - 22
-
-Remark: all of the GPIO pins on these devices can signal an external interrupt in one way or another.
 
 #### CRCSCAN
 * All three Dx devices provide a single CRCSCAN.
