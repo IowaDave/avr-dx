@@ -1,5 +1,6 @@
 ---
 description: About AVR Dx Coding
+title: "Getting Started with AVR Dx"
 ---
 
 # Getting Started with AVR Dx
