@@ -1,3 +1,8 @@
+---
+description: Demonstrate differences in writing code for the new Dx types of controllers compared to the older ATmega328P types.
+title: "Blink And Ye Shall Learn"
+---
+
 # Blink And Ye Shall Learn
 
 ![AVR64DD28 blinking an LED]({{site.baseurl}}/images/AVR64DD28_LED.jpg)
