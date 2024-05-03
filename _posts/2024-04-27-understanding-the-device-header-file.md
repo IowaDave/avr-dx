@@ -1,3 +1,9 @@
+---
+description: Explores the device header file that names all the registers and bitfields
+title: "Understanding the Device Header File"
+---
+
+
 # Understanding the Device Header File
 
 Two documents spell out pretty much everything there is to know about an AVR microcontroller:
