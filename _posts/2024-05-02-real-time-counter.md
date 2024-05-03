@@ -1,3 +1,9 @@
+---
+description: Explores the RTC module of an AVR Dx microcontroller
+title: "RTC Real Time Counter Module"
+---
+
+
 # RTC Real Time Counter Module
 
 Here be Magic.
