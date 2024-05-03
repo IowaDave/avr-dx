@@ -103,7 +103,8 @@ Remark: The DD having two seemed like a nice improvement over the ATmega328P.
 
 Remarks: 
 
-1.The Dx series enable all of the general purpose I/I pins to function as inputs to the ADC. By contrast, ATmega328P allows only eight. 
+1. The Dx series enable all of the general purpose I/I pins to function as inputs to the ADC. By contrast, ATmega328P allows only eight. 
+
 2. The different numbers of "channels" is not as significant as it seems. The DA and DB offer a few more internally generated voltage references.
 
 #### One, 10-bit DAC
