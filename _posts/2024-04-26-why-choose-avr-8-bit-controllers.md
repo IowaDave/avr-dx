@@ -1,3 +1,9 @@
+---
+description: Compare AVRs to other kinds of microcontrollers
+title: "Why Choose AVR 8-bit Controllers"
+---
+
+
 # Why Choose AVR 8-bit Controllers?
 
 In a word, simplicity. But first, some words in favor of the alternatives.
