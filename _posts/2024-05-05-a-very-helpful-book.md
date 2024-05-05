@@ -11,11 +11,11 @@ Tom Almy, an electrical engineer, wrote a nice book about the ATmega4809, called
 
 His book comes with access to a rich set of example programs and code-writing aids.
 
-Skimming through a datasheet for the ATmega4809, I see the two devices appear to embody many of the same internal peripherals.
-
 Tom's book goes "far inside" the 4809 chip to reveal, explain and exploit features that the regular Arduino core library might not make readily available.
 
-It turns out that many features of the ATmega4809 are found also in my AVR64DD28. Bravo! Tom's book becomes a tool in the hand for someone digging into the AVR Dx family of microcontrollers.
+Skimming through a datasheet for the ATmega4809, I see it appears to embody many of the same internal peripherals as those in my AVR64DD28 and other controllers in the AVR Dx lineup.
+
+Bravo! Tom's book becomes a tool in the hand for someone digging into the AVR Dx family also.
 
 Differences exist between the two device families, of course, but not many. The similarities make this book deserving of consideration for anyone seeking better understanding of an AVR Dx.
 
@@ -23,9 +23,15 @@ Differences exist between the two device families, of course, but not many. The 
 
 The ATmega4809 is available in a 40-pin DIP package for us through-hole, breadboard prototypers. 
 
-Having 12 pins more, compared to 28-pin DIP packages offered in the Dx lineup, brings more resources to a project that might need them. Examples include more timer/counters, USART serial interfaces and event system channels. The extra dozen I/O pins could prove handy as well.
+Having 12 pins more, compared to 28-pin DIP packages offered in the Dx lineup, brings more resources to a project that might need them. Examples include more timer/counters, USART serial interfaces and event system channels. 
 
-I feel sure that lessons learned about Dx chips would carry over beneficially toward understanding when and how to make use of a 4809 instead.
+The extra dozen I/O pins could prove handy as well. However, Tom would be the first to tell you that  unused pins only take up space and may add uncompensated expense to a project. Pick the part that fits the project, he would say.
+
+I begin to see the 28-pin versions of the newer-but-similar Dx family as breadboard-friendly alternatives to the 4809, and vice versa.
+
+It increases the potential value of studying both.
+
+Just as Tom's book on the 4809 can aid understanding of the Dx chips, I expect learning about Dx chips will carry over beneficially toward understanding when and how to make use of a 4809 instead.
 
 <hr />
 
