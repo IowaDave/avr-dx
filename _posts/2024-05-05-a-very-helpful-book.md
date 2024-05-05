@@ -11,7 +11,7 @@ Tom Almy, an electrical engineer, wrote a nice book about the ATmega4809, called
 
 His book comes with access to a rich set of example programs and code-writing aids.
 
-Tom's book goes "far inside" the 4809 chip to reveal, explain and exploit features that the regular Arduino core library might not make readily available.
+Tom goes "far inside" the 4809 chip to reveal, explain and exploit features that the regular Arduino core library might not make readily available.
 
 Skimming through a datasheet for the ATmega4809, I see it appears to embody many of the same internal peripherals as those in my AVR64DD28 and other controllers in the AVR Dx lineup.
 
@@ -32,6 +32,8 @@ I begin to see the 28-pin versions of the newer-but-similar Dx family as breadbo
 It increases the potential value of studying both.
 
 Just as Tom's book on the 4809 can aid understanding of the Dx chips, I expect learning about Dx chips will carry over beneficially toward understanding when and how to make use of a 4809 instead.
+
+That 4809 could of course be mounted directly in a circuit and programmed through its UPDI pin. However, with *Far Inside Nano Every ... the 4809 Unleashed* in hand, someone could explore the possibilities conveniently with an Arduino Nano Every development board also.
 
 <hr />
 
