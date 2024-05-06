@@ -13,13 +13,13 @@ What does that mean? A:
 
 * "**signal**" is just a voltage level, or a change in the level. Note that it specifies a *voltage*, saying nothing about any *current*.
 * "**route**" is a physical pathway, like a jumper wire but traced on the silicon, by which a signal arising in one place can be sensed in another, different place.
-* "**place**" refers to the peripherals built into the microcontroller.
+* "**place**" refers to the peripherals built into the microcontroller, such as an I/O pin, a timer, or the analog-to-decimal converter (ADC).
 
-It means one can establish a circuit inside the microcontroller whereby a signal at one place can control an action at another.
+It means one can establish a circuit inside the microcontroller whereby a signal originating at one place can control an action at another.
 
 ### Seeing Is Believing
 
-It is now hands-on-the-breadboard time. The following steps enable a switch *with almost no current passing through it* to turn a light on and off. 
+It is now hands-on-the-breadboard time. The following steps enable a switch *with almost no current passing through it* to drive current in another, different circuit, turning a light on and off. 
 
 **Step 1**: establish the switch as the signal's source. Connect:
 
@@ -29,7 +29,7 @@ It is now hands-on-the-breadboard time. The following steps enable a switch *wit
 
 The switch gives the ability to apply a voltage signal onto pin PD7 without passing much current.
 
-When the switch is open, resistor R1 drains the voltage on pin PD7 down to ground, signaling a "LOW Level". Closing the switch pulls up the voltage on PD7 to Vcc through resistor R0, signaling a "HIGH Level".
+When the switch is open, resistor R0 drains the voltage on pin PD7 down to ground, signaling a "LOW Level". Closing the switch pulls up the voltage on PD7 to Vcc through resistor R1, signaling a "HIGH Level".
 
 **Step 2**: enable pin PA2 to energize the light. Connect:
 * the anode of an LED to pin PA2, and
@@ -65,7 +65,7 @@ In other words, at the risk of becoming tedious, this program *gives the same re
 
 ### LED. Big Deal, Right?
 
-Yes, right. Because if a microcontroller can turn on an LED, then it also can actuate a circuit that turns on all the lights in a room, or lights up a building, or starts a motor, or brings a whole power plant online, or anything else, at the mere touch of a low-voltage switch that transmits virtually no current at all, no code involved, 
+Yes, *right*, actually. Because if a microcontroller can turn on an LED, then it also can actuate a circuit that turns on all the lights in a room, or lights up a building, or starts a motor, or brings a whole power plant online, or anything else, at the mere touch of a low-voltage switch that transmits virtually no current at all, no code involved, 
 
 ### Now To Blink Without Thinking
 
@@ -147,6 +147,14 @@ Finally I did what seems to work best when all else fails: open the device heade
 Eventually a pattern emerges and one sees what to copy from the header file and paste into the program. It becomes obvious, after one figures out what to look for.
 
 It would have been nice to find a worked example in the datasheet. I hope the examples in this article may help someone else to get a grip on the Event System a little faster than I did.
+
+### Related Articles
+
+Links to the datasheet documentation are provided in the "Getting Started" and "Where to Learn More" articles listed below.
+
+The Device header file is explored in detail in "Understanding the Device Header File".
+
+Real Time Counter and its Periodic Interrupt Timer (PIT) are described in the "RTC Real Time Counter" article.
 
 <hr />
 
