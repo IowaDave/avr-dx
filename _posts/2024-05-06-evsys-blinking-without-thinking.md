@@ -17,6 +17,16 @@ What does that mean? A:
 
 It means one can establish a circuit inside the microcontroller whereby a signal originating at one place can control an action at another.
 
+### How Does It Differ from an Interrupt?
+
+If you think about it, interrupts carry a signal from a peripheral to the CPU. The CPU jumps right away to a block of code called an interrupt service routine (ISR). The code in an ISR certainly can control other parts of the device.
+
+The difference is that events route signals directly from one place to another without involving the CPU or an ISR. Some kinds of signals, called "asymmetric events", can travel and take effect actually faster than the CPU can execute even a single code instruction.
+
+Through events, peripherals can be configured to communicate amongst themselves and initiate tasks without waiting for the CPU to tell them what to do.
+
+All of that, and one more thing. Events may require less code to set up, compared to interrupts and ISRs.
+
 ### Seeing Is Believing
 
 It is now hands-on-the-breadboard time. The following steps enable a switch *with almost no current passing through it* to drive current in another, different circuit, turning a light on and off. 
