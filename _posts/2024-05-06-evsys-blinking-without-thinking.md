@@ -9,31 +9,39 @@ The Event System, called EVSYS, routes signals from one place to another inside 
 
 ### Definitions
 
-What does that mean? A:
+For the purposes of this article, a:
 
 * "**signal**" is just a voltage level, or a change in the level. Note that it specifies a *voltage*, saying nothing about any *current*.
 * "**route**" is a physical pathway, like a jumper wire but traced on the silicon, by which a signal arising in one place can be sensed in another, different place.
 * "**place**" refers to the peripherals built into the microcontroller, such as an I/O pin, a timer, or the analog-to-decimal converter (ADC).
 
-It means one can establish a circuit inside the microcontroller whereby a signal originating at one place can control an action at another.
+It means that, with just a bit of setup code, a program can establish a circuit inside the microcontroller whereby a signal originating in one peripheral can direct another to perform an action.
 
 ### How Does It Differ from an Interrupt?
 
-If you think about it, interrupts carry a signal from a peripheral to the CPU. The CPU jumps right away to a block of code called an interrupt service routine (ISR). The code in an ISR certainly can control other parts of the device.
+Begin with similarity. Interrupts carry a signal from a peripheral to the CPU, which we may view here as a kind of peripheral. The CPU jumps right away to a block of code called an interrupt service routine (ISR). The code in an ISR certainly can control any of many other peripherals in the device.
 
-In that way, an interrupt is a particular kind of event.
+In that way, an interrupt is a particular kind of event targeting a single peripheral, the CPU, with its broad scope of effect across the entire microcontroller. But there are some differences.
 
-The difference is that events can target other peripherals rather than the CPU. They route signals directly from one place to another, bypassing the CPU. The target peripheral can be configured to take a definite action upon receiving the event. 
+* Events bypass the CPU.
+<br><br>
+Events travel to other peripherals rather than the CPU. In fact, one event can pass to more than one peripheral simultaneously. 
+<br><br>
+A peripheral listening for the signal will have been configured, prior to the event, to take a definite action upon receiving it. No code is involved in starting the action. By contrast, running code *is* the action that the CPU performs following an interrupt.
+<br><br>
+Some kinds of signals, called "asymmetric events", can trigger the targeted actions actually faster than the CPU can execute even a single code instruction. Speed can make a difference, for example when responding protectively after a fault is detected. 
 
-Some kinds of signals, called "asymmetric events", can trigger the targeted actions actually faster than the CPU can execute even a single code instruction.
+* A peripheral can do only the things its hardware is configured to do. 
+<br><br>
+The CPU can choose among several different actions after receiving an interrupt, based on code in the ISR. Peripherals will perform the single action the code writer has set them up to do.
+<br><br> 
+Peripherals can signal subsequent events of their own. I imagine that program writers can arrange Events in such a way that peripherals perform a sequence of tasks without requiring the CPU to tell them what to do.
 
-Through events, peripherals can communicate amongst themselves and initiate coordinated tasks without waiting for the CPU to tell them what to do.
-
-All of that, and one more thing. Events may require less code to set up, compared to interrupts and ISRs.
+* One more thing. Events may require less code to set up, compared to interrupts and ISRs.
 
 ### Seeing Is Believing
 
-It is now hands-on-the-breadboard time. The following steps enable a switch *with almost no current passing through it* to drive current in another, different circuit, turning a light on and off. 
+It is now hands-on-the-breadboard time. The following steps set up a switch that will have *almost no current* passing through it, using that switch to drive current through another, different circuit, turning a light on and off. 
 
 **Step 1**: establish the switch as the signal's source. Connect:
 
@@ -48,6 +56,8 @@ When the switch is open, resistor R0 drains the voltage on pin PD7 down to groun
 **Step 2**: enable pin PA2 to energize the light. Connect:
 * the anode of an LED to pin PA2, and
 * the cathode of that LED through a suitable resistor, such as 330 Ohms, to ground.
+
+#### To Do: put a schematic diagram here.
 
 **Step 3**:
 Somehow, the signal received on pin PD7 must actuate a current on pin PA2.
@@ -69,25 +79,29 @@ However, the Event System bypasses the CPU so that, in effect, the input pin *di
 
 ### What Does That Code Do?
 
-Putting pin PD7 into INPUT mode configures it to sense a voltage without accepting any current. 
+The program puts pin PD7 into INPUT mode, configuring it to sense a voltage without accepting any current. 
 
-Table **3.1 I/O Multiplexing** on page 14 of the datasheet identifies EVOUTA as one of the alternative roles that pin PA2 can perform. Activating the Event channel and routing its signal to EVOUTA automatically puts PA2 into OUTPUT mode and places the Event System channel in control of it, superseding the pin's default role of general purpose input-output. 
+How does the program determine which pin handles the output? By routing the signal to the EVOUTA "event user".
+
+**Table 3.1 I/O Multiplexing** on page 14 of the datasheet identifies EVOUTA as one of the alternative roles that pin PA2 can perform. 
+
+By activating the Event channel and routing its signal to EVOUTA, the program automatically puts PA2 into OUTPUT mode and places the Event System channel in control of it, superseding the pin's default role as a general purpose input-output. 
 
 The CPU plays no further role after executing the three instructions. However, and this is important, the *microcontroller* remains involved. When the hardware senses HIGH voltage (with no current) on pin PD7, *the hardware* automatically energizes and sources current out through pin PA2.
 
 In other words, at the risk of becoming tedious, this program *gives the same result* as one in which code monitors the input pin and activates the output pin &mdash; but without the code.
 
-### Oh. How. Sweet. Another Blinkin' LED... Big Deal, Right?
+### Beyond the LED
 
-Yes, *right*, actually big. Consider that a microcontroller able to turn on an LED can also actuate a circuit that turns on all the lights in a room, or lights up a building, or starts a motor, or brings a whole power plant online, or you-name-it, at the mere touch of a low-voltage switch, while using so little current that even its CPU is not running.
+A microcontroller able to turn on an LED can also actuate a circuit that turns on all the lights in a room, or lights up a building, or starts a motor, or brings a whole power plant online, or you-name-it. Most readers probably knew that much already. Now imagine the Event System doing it with no code.
 
-And that's imagining only what can be sent out through an external pin. What about signals coming in? For example, the Event System can trigger a timer on an event, start and stop it like a stopwatch, even while the rest of the system including the CPU remains idle, consuming no current, deeply asleep.
+What about signals coming in? The Event System can trigger internal actions also. To give just one example, a timer/counter can activate on an event, like a stopwatch, even while the rest of the system including the CPU remains idle, consuming minimal current.
 
-The Event System is described on pages 145-153 of the datasheet. Spend some time perusing the list of Event Generators, the peripherals that can send events. It includes the timers, I/O pins, serial communications and analog interfaces, and, something still unfamiliar to me, the custom logic look-up tables (LUTs). 
+The Event System is described on pages 145-153 of the datasheet. The list of Event Generators, the peripherals that can send events, includes the timers, I/O pins, serial communications and analog interfaces, and, something still unfamiliar to me, the custom logic look-up tables (LUTs). 
 
-Look also at the list of Event Users, the peripherals that can act upon receiving events: measuring time, counting them, evaluating analog voltage, actuating external pins as this article demonstrates, and those LUTs again.
+Look also at the list of Event Users, the peripherals that can act upon receiving events: counting them, measuring time, quantifying an analog voltage, actuating external pins as this article demonstrates, and engaging those mysterious LUTs again.
 
-Parents urge children to think before they act. Yet in microcontrollers, a capacity for action without a need to crunch some code can be a good thing.
+Parents urge children to think before they act. Yet in microcontrollers, a capacity for action without a need to crunch some code might prove useful.
  
 ### How To Blink Without Thinking
 
@@ -158,6 +172,8 @@ int main ()
 }
 ```
 
+Notice there is no ```loop()``` in that program. It needs none. Instead, a ```main()``` code block executes the setup procedure then brings program execution to a halt. 
+
 ### Almost Too Easy To Believe
 
 Something there is in my mind that craves complexity and cannot immediately accept simple explanations.
@@ -166,15 +182,31 @@ I spent several hours re-reading Section 16 in the datasheet, thinking, "There m
 
 Finally I did what seems to work best when all else fails: open the device header file and find in there all of the definitions that correspond to the register names and the parameter values named in the data sheet for this module.
 
-Eventually a pattern emerges and one sees what to copy from the header file and paste into the program. It becomes obvious, after one figures out what to look for.
+Eventually a pattern emerges. One begins to see what to copy from the header file and paste into the program. For each event, the setup code involves two instructions.
 
-It would have been nice to find a worked example in the datasheet. I hope the examples in this article may help someone else to get a grip on the Event System a little faster than I did.
+1. Assign one of the event channels to one, selected event generator.
+<br><br>
+The channels specialize somewhat as to which event generators they can take. The datasheet mentions this somewhat blandly and obscurely. The details show up more clearly in the device header file.
+<br><br>
+The Device header file is explored in detail in one of the articles listed below, "Understanding the Device Header File". You can view the header file for my particular Dx device, the AVR64DD28 &mdash; better yet, search it! &mdash; in a web browser at the following URL: [https://github.com/SpenceKonde/DxCore/blob/master/megaavr/extras/ioheaders/ioavr64dd28.h](https://github.com/SpenceKonde/DxCore/blob/master/megaavr/extras/ioheaders/ioavr64dd28.h).
+<br><br>
+For example the header file defines the event generator "PORTD\_PIN7" for only Channels 2 and 3. I chose Channel 2 for the first example, above.
+<br><br>
+Likewise, the event generator "RTC\_PIT\_DIV512" is defined only for Channels 1, 3 and 5. I chose Channel 1 for the second example then copied the definition from the header file to paste into the program.
+
+2. Configure a selected event user to receive signals from that channel.
+<br><br>
+Each event user has its own register name defined in the header file, starting with "USER", like USEREVSYSEVOUTA. The examples above demonstrate assigning the channel number to the register.
+<br><br>
+More than one event user can "listen" to a channel. Assign the channel to each user's register in separate code statements.
+
+It becomes self-evident, after one figures out what to look for.
+
+Alas, the datasheet does not include a worked example. I hope the examples in this article may help someone else to get the picture and grasp the Event System a little faster than I did.
 
 ### Related Articles
 
 Links to the datasheet documentation are provided in the "Getting Started" and "Where to Learn More" articles listed below.
-
-The Device header file is explored in detail in "Understanding the Device Header File".
 
 Real Time Counter and its Periodic Interrupt Timer (PIT) are described in the "RTC Real Time Counter" article.
 
