@@ -191,7 +191,7 @@ Eventually a pattern emerges. One begins to see what to copy from the header fil
 <br><br>
 The Device header file is explored in detail in one of the articles listed below, "Understanding the Device Header File". You can view the header file for my particular Dx device, the AVR64DD28 &mdash; better yet, search it! &mdash; in a web browser at the following URL: [https://github.com/SpenceKonde/DxCore/blob/master/megaavr/extras/ioheaders/ioavr64dd28.h](https://github.com/SpenceKonde/DxCore/blob/master/megaavr/extras/ioheaders/ioavr64dd28.h).
 <br><br>
-For example the header file defines the event generator "PORTD\_PIN7" for only Channels&ngsp;2&nbsp;and&nbsp;3. I chose Channel&nbsp;2&nbspfor the first example, above.
+For example the header file defines the event generator "PORTD\_PIN7" for only Channels&nbsp;2&nbsp;and&nbsp;3. I chose Channel&nbsp;2&nbsp;for the first example, above.
 <br><br>
 Likewise, the event generator "RTC\_PIT\_DIV512" is defined only for Channels 1, 3 and 5. I chose Channel 1 for the second example then copied the definition from the header file to paste into the program.
 
