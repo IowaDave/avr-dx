@@ -3,9 +3,9 @@ description: introduces the Event System of a Dx controller
 title: "Events - Blinking Without Thinking"
 ---
 
-# EVSYS &mdash; Blinking Without Thinking
+# Events &mdash; Blinking Without Thinking
 
-The Event System routes signals from one place to another inside an AVR Dx controller, such as my AVR64DD28.
+The Event System, called EVSYS, routes signals from one place to another inside an AVR Dx controller, such as my AVR64DD28.
 
 ### Definitions
 
@@ -21,9 +21,13 @@ It means one can establish a circuit inside the microcontroller whereby a signal
 
 If you think about it, interrupts carry a signal from a peripheral to the CPU. The CPU jumps right away to a block of code called an interrupt service routine (ISR). The code in an ISR certainly can control other parts of the device.
 
-The difference is that events route signals directly from one place to another without involving the CPU or an ISR. Some kinds of signals, called "asymmetric events", can travel and take effect actually faster than the CPU can execute even a single code instruction.
+In that way, an interrupt is a particular kind of event.
 
-Through events, peripherals can be configured to communicate amongst themselves and initiate tasks without waiting for the CPU to tell them what to do.
+The difference is that events can target other peripherals rather than the CPU. They route signals directly from one place to another, bypassing the CPU. The target peripheral can be configured to take a definite action upon receiving the event. 
+
+Some kinds of signals, called "asymmetric events", can trigger the targeted actions actually faster than the CPU can execute even a single code instruction.
+
+Through events, peripherals can communicate amongst themselves and initiate coordinated tasks without waiting for the CPU to tell them what to do.
 
 All of that, and one more thing. Events may require less code to set up, compared to interrupts and ISRs.
 
@@ -73,11 +77,13 @@ The CPU plays no further role after executing the three instructions. However, a
 
 In other words, at the risk of becoming tedious, this program *gives the same result* as one in which code monitors the input pin and activates the output pin &mdash; but without the code.
 
-### LED. Big Deal, Right?
+### Oh. How. Sweet. Another Blinkin' LED... Big Deal, Right?
 
-Yes, *right*, actually. Because if a microcontroller can turn on an LED, then it also can actuate a circuit that turns on all the lights in a room, or lights up a building, or starts a motor, or brings a whole power plant online, or anything else, at the mere touch of a low-voltage switch that transmits virtually no current at all, no code involved, 
+Yes, *right*, actually big. Consider that a microcontroller able to turn on an LED can also actuate a circuit that turns on all the lights in a room, or lights up a building, or starts a motor, or brings a whole power plant online, or you-name-it, at the mere touch of a low-voltage switch, while using so little current that even its CPU is not running.
 
-### Now To Blink Without Thinking
+Parents urge children to think before they act. Yet in microcontrollers, a talent for action without a need to crunch some code can be a good thing.
+ 
+### How To Blink Without Thinking
 
 This article concludes with a slightly longer program that does the same thing as the listing above, but takes a periodic signal generated internally by the RTC peripheral rather than one from an input pin.
 
