@@ -57,7 +57,7 @@ When the switch is open, the pull-down resistor R0 drains the voltage on pin PD7
 * anode of an LED to pin PA2, and the
 * cathode of that LED through a suitable resistor, such as 330 Ohms, to ground.
 
-#### (To Do: put a schematic diagram here.)
+##### (Note to Dave: Please display a schematic diagram here.)
 
 **Step 3**:
 Somehow, the signal received on pin PD7 must actuate a current on pin PA2.
@@ -160,7 +160,7 @@ void setup() {
        RTC_PERIOD_CYC512_gc
      | RTC_PITEN_bm;  
      
-  EVSYS.CHANNEL1 =                    // tell Channel 1 to exhibit the signals coming
+  EVSYS.CHANNEL1 =                    // tell Channel 1 to exhibit the signals coming from 
     EVSYS_CHANNEL1_RTC_PIT_DIV512_gc; // the PIT_DIV512 takeoff of the RTC module's prescaler
 
   EVSYS.USEREVSYSEVOUTA =             // set the output level on pin PA2
@@ -174,7 +174,7 @@ int main ()
 }
 ```
 
-Notice there is no ```loop()``` in that program. It needs none. Instead, a ```main()``` code block executes the setup procedure then brings program execution to a halt. 
+Notice there is no ```loop()``` in that program. It needs none. Instead, a ```main()``` code block executes the setup procedure then halts all program execution. The LED continues to blink because the Event System transforms recurring PIT events into HIGH and LOW states on pin PA2.
 
 ### Almost Too Easy To Believe
 
@@ -186,23 +186,24 @@ Finally I did what seems to work best when all else fails: open the device heade
 
 Eventually a pattern emerges. One begins to see what to copy from the header file and paste into the program. For each event, the setup code involves two instructions.
 
-1. Assign one of the event channels to one, selected event generator.
-<br><br>
-The channels specialize somewhat as to which event generators they can take. The datasheet mentions this somewhat blandly and obscurely. The details show up more clearly in the device header file.
+1. **Assign one of the event channels to one, selected event generator.**
+<br><br>The channels specialize somewhat as to which event generators they can take. The datasheet mentions this rather blandly and obscurely. The details show up more clearly in the device header file.
 <br><br>
 The Device header file is explored in detail in one of the articles listed below, "Understanding the Device Header File". You can view the header file for my particular Dx device, the AVR64DD28 &mdash; better yet, search it! &mdash; in a web browser at the following URL: [https://github.com/SpenceKonde/DxCore/blob/master/megaavr/extras/ioheaders/ioavr64dd28.h](https://github.com/SpenceKonde/DxCore/blob/master/megaavr/extras/ioheaders/ioavr64dd28.h).
 <br><br>
-For example the header file defines the event generator "PORTD\_PIN7" for only Channels 2 and 3. I chose Channel 2 for the first example, above.
+For example the header file defines the event generator "PORTD\_PIN7" for only Channels&ngsp;2&nbsp;and&nbsp;3. I chose Channel&nbsp;2&nbspfor the first example, above.
 <br><br>
 Likewise, the event generator "RTC\_PIT\_DIV512" is defined only for Channels 1, 3 and 5. I chose Channel 1 for the second example then copied the definition from the header file to paste into the program.
 
-2. Configure a selected event user to receive signals from that channel.
+2. **Configure a selected event user to receive signals from that channel.**
+<br><br>Each event user has its own register name defined in the header file, a mashup starting with "USER", then the target peripheral's name, then the destination in that peripheral where the signal is to go.<br><br>
+The Event System itself becomes the target, named "EVSYS", when you want to bring the signal out onto an external pin. The examples in this article use the resulting, predefined register name for the EVOUTA pin of EVSYS:  USEREVSYSEVOUTA. 
 <br><br>
-Each event user has its own register name defined in the header file, starting with "USER", like USEREVSYSEVOUTA. The examples above demonstrate assigning the channel number to the register.
+Treating that name just like any other a named variable, the program assigns the channel number to the register.
 <br><br>
 More than one event user can "listen" to a channel. Assign the channel to each user's register in separate code statements.
 
-It becomes self-evident, after one figures out what to look for.
+It becomes self-evident, even easy, after one figures out what to look for. Rather than try to remember all those names, code writers often choose to keep the datasheet and the device header file open for frequent reference.
 
 Alas, the datasheet does not include a worked example. I hope the examples in this article may help someone else to get the picture and grasp the Event System a little faster than I did.
 
