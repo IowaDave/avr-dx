@@ -9,7 +9,7 @@ The Event System, called EVSYS, routes signals from one place to another inside 
 
 ### Definitions
 
-For the purposes of this article, a:
+In this article, a:
 
 * "**signal**" is just a voltage level, or a change in the level. Note that it specifies a *voltage*, saying nothing about any *current*.
 * "**route**" is a physical pathway, like a jumper wire but traced on the silicon, by which a signal arising in one place can be sensed in another, different place.
@@ -19,7 +19,7 @@ It means that, with just a bit of setup code, a program can establish a circuit 
 
 ### How Does It Differ from an Interrupt?
 
-Begin with similarity. Interrupts carry a signal from a peripheral to the CPU, which we may view here as a kind of peripheral. The CPU jumps right away to a block of code called an interrupt service routine (ISR). The code in an ISR certainly can control any of many other peripherals in the device.
+Begin with similarity. Interrupts carry a signal from a peripheral to the CPU, which we shall view here as a kind of peripheral. The CPU jumps right away to a block of code called an interrupt service routine (ISR). The code in an ISR certainly can control any of many other peripherals in the device.
 
 In that way, an interrupt is a particular kind of event targeting a single peripheral, the CPU, with its broad scope of effect across the entire microcontroller. But there are some differences.
 
@@ -41,23 +41,23 @@ Peripherals can signal subsequent events of their own. I imagine that program wr
 
 ### Seeing Is Believing
 
-It is now hands-on-the-breadboard time. The following steps set up a switch that will have *almost no current* passing through it, using that switch to drive current through another, different circuit, turning a light on and off. 
+It is now hands-on-the-breadboard time. The following steps set up a switch to generate events on one pin, consisting of only voltage but no current. The events will, however, regulate current through another, different pin, turning a light on and off. 
 
-**Step 1**: establish the switch as the signal's source. Connect:
+**Step 1**: establish the switch as the signal's source. Connect a:
 
-* resistor "R0", 10K Ohms, between pin PD7 and ground to pull the pin low,
-* a switch between pin PD7 and an open row on the breadboard,
+* resistor "R0", 10K Ohms, between pin PD7 and ground to pull the pin low, a
+* switch between pin PD7 and an open row on the breadboard, and a
 * resistor "R1", 5K Ohms, connecting that row to the same voltage that powers the microprocessor, called Vcc. 
 
-The switch gives the ability to apply a voltage signal onto pin PD7 without passing much current.
+The switch controls the voltage signal on pin PD7.
 
-When the switch is open, resistor R0 drains the voltage on pin PD7 down to ground, signaling a "LOW Level". Closing the switch pulls up the voltage on PD7 to Vcc through resistor R1, signaling a "HIGH Level".
+When the switch is open, the pull-down resistor R0 drains the voltage on pin PD7 to ground, signaling a "LOW Level". Closing the switch pulls up the voltage on PD7 to Vcc through the current-limiting resistor R1, signaling a "HIGH Level".
 
-**Step 2**: enable pin PA2 to energize the light. Connect:
-* the anode of an LED to pin PA2, and
-* the cathode of that LED through a suitable resistor, such as 330 Ohms, to ground.
+**Step 2**: enable pin PA2 to energize the light. Connect the:
+* anode of an LED to pin PA2, and the
+* cathode of that LED through a suitable resistor, such as 330 Ohms, to ground.
 
-#### To Do: put a schematic diagram here.
+#### (To Do: put a schematic diagram here.)
 
 **Step 3**:
 Somehow, the signal received on pin PD7 must actuate a current on pin PA2.
@@ -79,15 +79,17 @@ However, the Event System bypasses the CPU so that, in effect, the input pin *di
 
 ### What Does That Code Do?
 
-The program puts pin PD7 into INPUT mode, configuring it to sense a voltage without accepting any current. 
+Pin PD7 in INPUT mode digitally senses a voltage as HIGH or LOW without accepting any current. As an event generator, it places the voltage level onto Channel 2 of the Event System.
 
-How does the program determine which pin handles the output? By routing the signal to the EVOUTA "event user".
+Certain I/O pins are among the devices that can receive and act according to the signal on an event channel. The Event System sets the output pin HIGH or LOW, according to the voltage level on the channel. 
+
+It specifies the output pins by name, such as "EVOUTA" in the listing above. Well, what pin is that?
 
 **Table 3.1 I/O Multiplexing** on page 14 of the datasheet identifies EVOUTA as one of the alternative roles that pin PA2 can perform. 
 
 By activating the Event channel and routing its signal to EVOUTA, the program automatically puts PA2 into OUTPUT mode and places the Event System channel in control of it, superseding the pin's default role as a general purpose input-output. 
 
-The CPU plays no further role after executing the three instructions. However, and this is important, the *microcontroller* remains involved. When the hardware senses HIGH voltage (with no current) on pin PD7, *the hardware* automatically energizes and sources current out through pin PA2.
+The CPU plays no further role after executing the three instructions. However, and this is important, the *microcontroller* remains involved. When the hardware senses HIGH voltage (with no current) on pin PD7, *the hardware* sets pin PA2 HIGH also, allowing the current to flow.
 
 In other words, at the risk of becoming tedious, this program *gives the same result* as one in which code monitors the input pin and activates the output pin &mdash; but without the code.
 
