@@ -81,7 +81,13 @@ In other words, at the risk of becoming tedious, this program *gives the same re
 
 Yes, *right*, actually big. Consider that a microcontroller able to turn on an LED can also actuate a circuit that turns on all the lights in a room, or lights up a building, or starts a motor, or brings a whole power plant online, or you-name-it, at the mere touch of a low-voltage switch, while using so little current that even its CPU is not running.
 
-Parents urge children to think before they act. Yet in microcontrollers, a talent for action without a need to crunch some code can be a good thing.
+And that's imagining only what can be sent out through an external pin. What about signals coming in? For example, the Event System can trigger a timer on an event, start and stop it like a stopwatch, even while the rest of the system including the CPU remains idle, consuming no current, deeply asleep.
+
+The Event System is described on pages 145-153 of the datasheet. Spend some time perusing the list of Event Generators, the peripherals that can send events. It includes the timers, I/O pins, serial communications and analog interfaces, and, something still unfamiliar to me, the custom logic look-up tables (LUTs). 
+
+Look also at the list of Event Users, the peripherals that can act upon receiving events: measuring time, counting them, evaluating analog voltage, actuating external pins as this article demonstrates, and those LUTs again.
+
+Parents urge children to think before they act. Yet in microcontrollers, a capacity for action without a need to crunch some code can be a good thing.
  
 ### How To Blink Without Thinking
 
