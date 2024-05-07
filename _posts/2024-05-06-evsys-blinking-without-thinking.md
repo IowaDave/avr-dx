@@ -193,13 +193,13 @@ The Device header file is explored in detail in one of the articles listed below
 <br><br>
 For example the header file defines the event generator "PORTD\_PIN7" for only Channels&nbsp;2&nbsp;and&nbsp;3. I chose Channel&nbsp;2&nbsp;for the first example, above.
 <br><br>
-Likewise, the event generator "RTC\_PIT\_DIV512" is defined only for Channels 1, 3 and 5. I chose Channel 1 for the second example then copied the definition from the header file to paste into the program.
+Likewise, the event generator "RTC\_PIT\_DIV512" is defined only for Channels&nbsp;1,&nbsp;3 and&nbsp;5. I chose Channel&nbsp;1&nbsp;for the second example then copied the definition from the header file to paste into the program.
 
 2. **Configure a selected event user to receive signals from that channel.**
 <br><br>Each event user has its own register name defined in the header file, a mashup starting with "USER", then the target peripheral's name, then the destination in that peripheral where the signal is to go.<br><br>
 The Event System itself becomes the target, named "EVSYS", when you want to bring the signal out onto an external pin. The examples in this article use the resulting, predefined register name for the EVOUTA pin of EVSYS:  USEREVSYSEVOUTA. 
 <br><br>
-Treating that name just like any other a named variable, the program assigns the channel number to the register.
+Treating that name just like any other named variable, the program assigns the channel number to the register.
 <br><br>
 More than one event user can "listen" to a channel. Assign the channel to each user's register in separate code statements.
 
