@@ -110,7 +110,7 @@ void loop() {
 
 ```Serial.swap(1)``` is the "Arduino Language" way of setting conditions such that ```Serial.begin()``` will institute the alternate pins PA4 and PA5. 
 
-```Serial``` is an elaborate class spanning multiple header files and many hundreds of lines of code. I won't go into it further here in this article about the Portfolio Multiplexer module, PORTMUX.
+```Serial``` is an elaborate class spanning multiple header files and many hundreds of lines of code. I won't go into it further here in this article about the Port Multiplexer module, PORTMUX.
 
 Instead, I give you a second example that avoids using "Arduino Language", writing instead directly to the hardware registers that make it all go.  This program produces the identical output as that above.
 
@@ -230,6 +230,23 @@ void USART0_sendString(char *str)
 Again, details regarding the USART module are outside the scope of this article.
 
 This "going-direct" example lacks a method for waiting until the USART module is ready for work. I have not found a way to do that &mdash; yet.
+
+### Peripherals Having I/O MUX
+
+The PORTMUX module controls I/O pin routing in separate registers for each of the following peripherals in my AVR64DD28. Note that PORTMUX may have give more choices for other packages having a greater number of I/O pins.
+
+| Peripheral | PORTMUX Register | Remarks |
+| ---------- | ---------------- | ------- |
+| Event System | EVSYSROUTEA | Output pins on Ports A, D and F |
+| CCL | CCLROUTEA | Outputs for tables 2, 1 and 0 |
+| USART | USARTROUTEA | Configure I/O for both USART0 and USART 1 |
+| SPI | SPIROUTEA | Choose one of five different I/O pin groups for SPI |
+| TWI (I2C, IIC) | TWIROUTEA | I/O pin groupings for Host, Client and Dual modes|
+| TCA | TCAROUTEA | Direct Timer/Counter A waveforms to one of four, different Ports|
+| TCB | TCBROUTEA | Alternate output pins for TCB0 and TCB1 but not for TCB2 |
+| TCD | TCDROUTEA | Three different sets of output pins for the four waveforms it generates |
+
+Pages 155 - 164 in the datasheet cover the PORTMUX module.
 
 
 <hr />
