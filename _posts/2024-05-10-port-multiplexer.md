@@ -31,7 +31,7 @@ We need to assign Serial I/O to an alternative pair of pins. How do we know whic
 ![excerpt of Table 3.1]({{site.baseurl}}/images/USART0_Multplx.png)
 <br>**Exhibit 2. Portion of Datasheet Table 3.1 I/O Multiplexing**
 
-The default pins for USART0 appear within the tall, vertical ovals, along the top two rows of Exhibit 2. 
+The default pins for USART0 appear within the tall, vertical ovals, along the top two rows of Exhibit&nbsp;2. 
 
 The smaller, dashed oval appearing on those same two rows highlights that XTALHF is a competing use for the same pins. 
 
