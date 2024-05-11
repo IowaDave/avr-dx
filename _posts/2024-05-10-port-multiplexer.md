@@ -31,13 +31,17 @@ We need to assign Serial I/O to an alternative pair of pins. How do we know whic
 ![excerpt of Table 3.1]({{site.baseurl}}/images/USART0_Multplx.png)
 <br>**Exhibit 2. Portion of Datasheet Table 3.1 I/O Multiplexing**
 
-The default pins for USART0 appear within the vertical ovals, along the top two rows of Exhibit 2. Horizontal ovals a few rows below indicate the alternate pair, pins PA4 and PA5 located at positions 26 and 27.
+The default pins for USART0 appear within the tall, vertical ovals, along the top two rows of Exhibit 2. 
+
+The smaller, dashed oval appearing on those same two rows highlights that XTALHF is a competing use for the same pins. 
+
+Horizontal ovals a few rows below indicate that pins PA4 and PA5 located at positions 26 and 27 provide an alternate I/O pair for USART0.
 
 A program can direct I/O for USART0 through PA4 and PA5, instead of PA0 and PA1, by writing to a register in the Port Multiplexer module. 
 
 ### Where To Make the Change
 
-The PORTMUX (PORT pin MUltipleXer) module provides a central place to assign pins for the eight peripheral modules that allow choosing among several I/O pins. Each such peripheral has its own register in PORTMUX. They are listed on page 156 of the datasheet.
+The PORTMUX (PORT pin MUltipleXer) module provides a central place to assign pins for the eight peripheral modules that allow choosing among several I/O pins. Each such peripheral has its own register in PORTMUX. They are listed on page 156 of the datasheet, and at the end of this article, under [Peripherals Having I/O MUX](#peripherals-having-io-mux).
 
 The USART example in this article has the "USART Route A" register. Its working name is the mashed-up concatenation, USARTROUTEA.
 
@@ -231,7 +235,7 @@ Again, details regarding the USART module are outside the scope of this article.
 
 This "going-direct" example lacks a method for waiting until the USART module is ready for work. I have not found a way to do that &mdash; yet.
 
-### Peripherals Having I/O MUX
+<h3 id="peripherals-having-io-mux">Peripherals Having I/O MUX</h3>
 
 The PORTMUX module controls I/O pin routing in separate registers for each of the following peripherals in my AVR64DD28. Note that PORTMUX may have give more choices for other packages having a greater number of I/O pins.
 
