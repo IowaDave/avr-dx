@@ -96,7 +96,7 @@ The ```Serial``` commands rank among the so-called "Big Three" groups of stateme
 uint16_t x = 0;                     // Tracks the message number.
 
 void setup() {
-  Serial.swap(1);                   // Route Serial I/o to PA4 and PA5
+  Serial.swap(1);                   // Route Serial I/O to PA4 and PA5
   Serial.begin(115200);             // Initialize USART0 at 115,200 BAUD           
   while (!Serial) { ; }             // Allow init to complete
   Serial.println();                 // Tell the World we're in business
@@ -114,7 +114,7 @@ void loop() {
 
 ```Serial.swap(1)``` is the "Arduino Language" way of setting conditions such that ```Serial.begin()``` will institute the alternate pins PA4 and PA5. 
 
-```Serial``` is an elaborate class spanning multiple header files and many hundreds of lines of code. I won't go into it further here in this article about the Port Multiplexer module, PORTMUX.
+```Serial``` is an elaborate class spanning multiple header files and many hundreds of lines of code.  Somewhere in all of that, the ```.swap()``` member function interacts with the Port Multiplexer. I won't go into it further here in this article about the PORTMUX module.
 
 Instead, I give you a second example that avoids using "Arduino Language", writing instead directly to the hardware registers that make it all go.  This program produces the identical output as that above.
 
