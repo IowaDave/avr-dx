@@ -116,7 +116,7 @@ void loop() {
 
 ```Serial``` is an elaborate class spanning multiple header files and many hundreds of lines of code.  Somewhere in all of that, the ```.swap()``` member function interacts with the Port Multiplexer. I won't go into it further here in this article about the PORTMUX module.
 
-Instead, I give you a second example that avoids using "Arduino Language", writing instead directly to the hardware registers that make it all go.  This program produces the identical output as that above.
+Instead, I give you a second example that avoids using Arduino's ```Serial``` class, writing instead directly to the hardware registers that make it all go.  This program produces the identical output as that above.
 
 ### Example Program Writing Directly to PORTMUX 
 
