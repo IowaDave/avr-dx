@@ -132,7 +132,7 @@ Here the program writes the alternate selection of pin group 0x1 directly to the
 ```
 /*
  *   Serial output on an alternate, non-default I/O pin
- *   Using the SERIAL object defined in Arduino Core libraries
+ *   Writing directly to hardware registers.
  *   
  * Designed for AVR Dx microcontrollers and tested with AVR64DD28.
  * 
