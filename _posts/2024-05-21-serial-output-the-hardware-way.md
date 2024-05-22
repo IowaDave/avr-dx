@@ -87,12 +87,12 @@ The datasheet lists four steps when setting up the USART for this purpose. They 
 
 The example program below borrows a macro and two function definitions from an example published by Microchip, Inc. on github.
 
-The macro defines an inline function, ```USART_BAUD_RATE(BAUD_RATE)```, implementing the formula given in the datasheet for calculating the value to write into the BAUD rate hardware register.
+* The macro defines an inline function, ```USART_BAUD_RATE(BAUD_RATE)```, implementing the formula given in the datasheet for calculating the value to write into the BAUD rate hardware register.
 
-```USART0_sendChar(char c)``` transmits the byte ```c``` by writing it to the USART's TXDATA register. From there, the hardware will transmit it automatically.
+* ```USART0_sendChar(char c)``` transmits the byte ```c``` by writing it to the USART's TXDATA register. From there, the hardware will transmit it automatically.
 
 
-```USART0_sendString(char *str)``` transmits the characters in the buffer pointed to by ```str```. All it needs to do is to call ```USART0_sendChar(char c)``` repeatedly, once for each character in the buffer.
+* ```USART0_sendString(char *str)``` transmits the characters in the buffer pointed to by ```str```. All it needs to do is to call ```USART0_sendChar(char c)``` repeatedly, once for each character in the buffer.
 
 ```
 /*
