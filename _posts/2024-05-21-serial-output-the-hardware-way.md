@@ -127,7 +127,7 @@ The example program below borrows a macro and two function definitions from an e
 #undef F_CPU
 #endif
 
-#define F_CPU (16000000L)                       // define F_CPU for this program
+#define F_CPU (16000000UL)                       // define F_CPU for this program
 
 /*
  * The following macro and two function prototypes
