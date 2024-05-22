@@ -81,7 +81,9 @@ The datasheet lists four steps when setting up the USART for this purpose. They 
 | &#49;&#46; Set the baud rate (USARTn.BAUD). | Calculate a constant based on the desired BAUD rate and the system clock speed. The data sheet gives the formula for the calculation. Store the result into USART's BAUD register. |
 | &#50;&#46; Set the frame format and mode of operation (USARTn.CTRLC).| For example: asynchronous mode with 8 character bits plus 1 stop bit but no parity bit. |
 | &#51;&#46; Configure the TXD pin as an output. | Determine which pin the USART will transmit through, and put that pin into OUTPUT mode. |
-| &#52;&#46; Enable the transmitter (USARTn.CTRLB). | Write a certain bit to logic "1" in the USART's CTRLB register.  |<br>**Table 1 - Set Up the USART for Asynchronous Transmission**
+| &#52;&#46; Enable the transmitter (USARTn.CTRLB). | Write a certain bit to logic "1" in the USART's CTRLB register.  |
+
+**Table 1 - Set Up the USART for Asynchronous Transmission**
 
 The example program below borrows a macro and two function definitions from an example published by Microchip, Inc. on github.
 
