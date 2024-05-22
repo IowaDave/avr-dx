@@ -97,6 +97,7 @@ The example program below borrows a macro and two function definitions from an e
 ```
 /*
  *   Serial output - asynchronous transmission
+ *   Writing directly to the USART hardware
  *   
  * Designed for AVR Dx microcontrollers and tested with AVR64DD28.
  * 
@@ -119,71 +120,57 @@ The example program below borrows a macro and two function definitions from an e
 
 /*
  * Pin PA0 is the default Transmit (Tx) pin.
- * (Optional) Connect an LED through a resistor to pin PA6.
+ * (Optional) Pin PA6 blinks an LED
  */
 
-
-#ifdef F_CPU                                    // delete any prior F_CPU definition
-#undef F_CPU
-#endif
-
-#define F_CPU (16000000UL)                       // define F_CPU for this program
-
 /*
- * The following macro and two function prototypes
+ * The following macro and two function prototpyes
  * are adapted from an example published 
  * by Microchip, Inc. on Github at the following URL, accessed in May 2024
  * https://github.com/microchip-pic-avr-examples/avr128da48-usart-example
  */
-
 #define USART_BAUD_RATE(BAUD_RATE) \
-  (uint16_t) ((float)(64 * F_CPU \              // F_CPU is used here		
-  / (16 * (float)BAUD_RATE)) + 0.5)             // inline macro to set baud rate
+  (uint16_t) ((float)(64 * F_CPU \
+  / (16 * (float)BAUD_RATE)) + 0.5)           // inline macro to set baud rate
+void USART0_sendChar(char c);                 // prototype, sends a char
+void USART0_sendString(char *str);            // prototype, sends a string
 
-void USART0_sendChar(char c);                   // prototype, sends a char
-void USART0_sendString(char *str);              // prototype, sends a string
-
-/* Program variables */
-uint16_t x = 0;                                 // tracks message number
-char outbuf[64];                                // buffer for the output string
+/* program variables */
+uint16_t x = 0;                               // tracks message number
+char outbuf[64];                              // buffer for the output string
 
 void setup() {
 
-  /* timed procedure sets system clock frequency to 16 MHz */
-  CPU_CCP = CCP_IOREG_gc;                       // enable write clock freq
-  CLKCTRL.OSCHFCTRLA = CLKCTRL_FRQSEL_16M_gc;   // write 16 MHz value
-
   /* enable output pins */
   PORTA.DIRSET =
-      PIN0_bm                                   // USART Tx output
-    | PIN6_bm;                                  // Optional LED
+      PIN0_bm                                 // USART Tx output
+    | PIN6_bm;                                // Optional LED
 
   /* configure USART0 */
-  USART0.BAUD = USART_BAUD_RATE(115200);        // set BAUD rate 115200
+  USART0.BAUD = USART_BAUD_RATE(115200);      // set BAUD rate 115200
   USART0.CTRLC = 
-    USART_CHSIZE_8BIT_gc;                       // 8-bit char, no parity, 1 stop bit  
-  PORTA.DIRSET = PIN0_bm;                       // OUTPUT mode for transmit Tx) pin 
+    USART_CHSIZE_8BIT_gc;                     // 8-bit char, no parity, 1 stop bit  
+  PORTA.DIRSET = PIN0_bm;                     // OUTPUT mode for transmit Tx) pin 
   USART0.CTRLB = 
-      USART_TXEN_bm;                            // enable the transmitter
+      USART_TXEN_bm;                          // enable the transmitter
 
-  USART0_sendString("\r\n");                    // transmit a blank line
+  USART0_sendString("\r\n");                  // transmit a blank line
 
 } /* end of setup process */
 
 void loop() {
 
-  delay(1000);                                  // delay() also uses F_CPU
+  delay(1000);
+  x += 1;                                     // increment the message counter
+  sprintf(outbuf,                             // specify the outbuf buffer and 
+    "Message # %u: Hello World!\r\n", x);     // build the message string in it
 
-  x += 1;                                       // increment message counter
-  sprintf(outbuf,                               // specify the outbuf buffer and 
-    "Message # %u: Hello World!\r\n", x);       // build the message string in it
+  USART0_sendString(outbuf);                  // transmit the buffer
+  USART0_sendString("\r\n");                  // transmit a blank line
 
-  USART0_sendString(outbuf);                    // transmit the chars in the buffer
-  USART0_sendString("\r\n");                    // transmit a blank line
+  PORTA.OUTTGL = PIN6_bm;                     // toggle an LED on PA6
 
-  PORTA.OUTTGL = PIN6_bm;                       // toggle the LED on P{A6
-
-}
+} /* end of loop process */
 
 
 /*
@@ -198,15 +185,15 @@ void USART0_sendChar(char c)
 {
     while(!(USART0.STATUS & USART_DREIF_bm))
     {
-        ;               // wait for the Tx data register to become available
+        ;             // wait for the Tx data register to become available
     }
     
-    USART0.TXDATAL = c;                          // write c into the register
+    USART0.TXDATAL = c;                       // write c into the register
 }
 
 void USART0_sendString(char *str)
 {
-    for(size_t i = 0; i < strlen(str); i++)      // send all chars in the buffer    
+    for(size_t i = 0; i < strlen(str); i++)    
     {        
         USART0_sendChar(str[i]);    
     }
@@ -216,11 +203,9 @@ void USART0_sendString(char *str)
 
 ### Remarks on the example program
 
-The macro, ```F_CPU```, is defined to a value equal to the system clock frequency. It is used throughout the Arduino Core library wherever a process needs to take account of how fast the system clock is running. 
+The macro, ```USART_BAUD_RATE(BAUD_RATE)``` makes use of a second macro, ```F_CPU```, which is defined at compile-time to a value equal to the system clock frequency. It is used throughout the Arduino Core library wherever a process needs to take account of how fast the system clock is running. 
 
-The Arduino Core for Dx processors sets the system clock to 24 MHz by default and defines ```F_CPU``` as 24,000,000. 
-
-This program demonstrates changing the system clock frequency and redefining ```F_CPU``` accordingly. I selected the speed of 16 MHz arbitrarily, just to verify my understanding of the system clock and of ```F_CPU```. 
+The Arduino Core for Dx modifies the Arduino IDE Tools menu to offer a choice of system clock speeds prior to compiling the code. Making a selection in the menu determines both the setting of the actual clock speed and the corresponding value of ```F_CPU```.
 
 Everything about this code is "blocking", meaning that it ties up the CPU. There are better approaches for tracking time and operating the USART that would free up the CPU to do other work.
 
