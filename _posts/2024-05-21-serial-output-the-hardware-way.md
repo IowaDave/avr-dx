@@ -58,6 +58,12 @@ Signals emerging from a microcontroller need to pass through a "go-between" devi
 
 This setup works because the Arduino Uno or Classic Nano has on its board a device that takes the signals appearing on the Tx and Rx pins of the board and transfers them out via USB. The Arduino does this regardless of whether the signals are put onto those pins by a program running on the Arduino or (as in this case) originating somewhere else instead.
 
+#### It was even easier than that!
+
+It turned out that the Arduino Nano (Classic) operating as my UPDI programmer also passes the Tx signal back to the computer, after connecting Tx of the Dx to Tx of the programmer. 
+
+It appears that firmware can remain in place on a go-between Arduino, as long as it does not interfere with the Tx pin. This is very nice, as I can keep both the programmer and the target device on a single breadboard while developing a project.
+
 ### Solution to #2 - USART Direct
 
 The acronym stands for **U**niversal **S**ynchronous and **A**synchronous **R**eceiver and **T**ransmitter. It tells you that the thing not only receives and transmits but also knows more than one way to do it:
