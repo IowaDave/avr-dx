@@ -216,7 +216,13 @@ void USART0_sendString(char *str)
 
 ### Remarks on the example program
 
-Everything about this code is "blocking", meaning that it ties up the CPU. There are better approaches that free up the CPU to do other work.
+The macro, ```F_CPU```, is defined to a value equal to the system clock frequency. ```F_CPU``` is used throughout the Arduino Core library wherever a process needs to know how fast the system clock is running. 
+
+The Arduino Core for Dx processors sets the system clock to 24 MHz by default and defines ```F_CPU``` accordingly as 24,000,000. 
+
+This program demonstrates changing the system clock frequency and redefining ```F_CPU``` accordingly.. I selected the speed of 16 MHz arbitrarily, just to verify my understanding of the system clock and of ```F_CPU```. 
+
+Everything about this code is "blocking", meaning that it ties up the CPU. There are better approaches for tracking time and operating the USART that would free up the CPU to do other work.
 
 I would normally use a timer interrupt instead of ```delay()```. Likewise, I would want to make use of USART interrupts. For that purpose based on my know-how at the time I wrote this in May 2024, I would choose to use the Serial class methods provided in the Arduino Core libraries, as those are interrupt-driven.
 
