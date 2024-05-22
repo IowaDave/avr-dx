@@ -1,6 +1,6 @@
 ---
 description: simple serial output using hardware directly
-title" "Serial Output the Hard(ware) Way"
+title: "Serial Output the Hard(ware) Way"
 ---
 
 # Serial Output the Hard(ware) Way
