@@ -24,13 +24,17 @@ My goal in this series is to learn how the hardware works. That's a general them
 What follows reflects my path toward understanding how the USART hardware inside a Dx controller transmits data.
 
 ### Problem
-I'm using Arduino IDE to compile and upload code onto an unmounted AVR64DD28 microcontroller. My project needs to send text strings to the computer. Being focused on hardware, it avoids using the Serial class methods provided in the Arduino Core libraries. The program will need to:
+I'm using Arduino IDE to compile code for an unmounted AVR Dx microcontroller. The IDE uploads code to the Dx through an Arduino Nano (Classic) clone development board running a firmware that turns the Nano into a UPDI programmer. 
 
-1. generate the strings;
+I would like to send text strings from the Dx device back to the computer. The Dx program will need to:
 
-2. transmit them out through the Dx controller's hardware; and
+**1. generate the strings**;
 
-3. conduct the strings into the computer through its USB interface.
+**2. transmit them out through the Dx controller's hardware**; and
+<br><br>Steps #1 and #2 will avoid using the ```Serial``` class methods of the IDE in the example program, as a way to focus on the hardware.
+
+**3. conduct the strings into the computer**.
+<br><br>Step #3 will be addressed by passing the Dx transmissions through a "go-between" Arduino Nano board for re-transmission via the Nano's USB interface.
 
 ### Solution to #1 - ```sprintf()```
 
