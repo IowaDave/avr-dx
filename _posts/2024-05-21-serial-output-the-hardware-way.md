@@ -5,23 +5,24 @@ title: "Serial Output the Hard(ware) Way"
 
 # Serial Output the Hard(ware) Way
 
-This article will:
+This article will demonstrate how to:
 
-* Show how to send text from an unmounted AVR Dx microcontroller to a computer using the Dx USART hardware module directly.<br>
-<br>
+* **transmit text from an unmounted AVR Dx microcontroller** to a computer using the Dx USART hardware module directly.
+<br><br>
 "Unmounted" means the controller is wired directly into a circuit, rather than indirectly as a component incorporated into an Arduino development board product. 
+<br><br> "Using ... hardware ... directly" means avoiding the ```Serial``` class methods.
 
-* Demonstrate using an older-generation Arduino in a passive role for transferring the text bytes between the controller and a computer. 
+* **route the transmissions to a computer's USB port** through older-generation Arduino in a go-between role. 
 
 I will do my best to keep this short.
 
 <blockquote>
-Now let me say right here, upfront, that programs designed to run on Dx-family devices having large-enough memory capacity, such as the 64K of flash in my AVR64DD28, might as well avail themselves of all the preprogrammed Serial I/O and print formatting methods available in the <a href="https://github.com/SpenceKonde/DxCore">Dx Core library</a> for Arduino IDE generously provided on Github by Spence Konde and friends. The full boatload adds about 4K into the compiled code of a project, leaving nearly 60K for the user's program. 
+Now let me say right here, upfront, that programs designed to run on Dx-family devices having large-enough memory capacity, such as the 64K of flash in my AVR64DD28, might as well avail themselves of all the preprogrammed Serial I/O and print formatting methods available in the <a href="https://github.com/SpenceKonde/DxCore">Dx Core library</a> for Arduino IDE generously provided on Github by Spence Konde and friends. The full boatload adds about 4K into the compiled code of a project, leaving nearly 60K for the user's program. But that's for future applications.
 </blockquote>
 
-My goal in this series is to learn how the hardware works. That's a general theme of my life, about everything: study how it works; go beyond merely learning how to "work" it. 
+My goal in this series is to learn how the hardware works. It is a general theme of my life, about everything: study how it works; go beyond merely learning "how to work it". 
 
-What follows reflects my path toward understanding how the USART hardware inside a Dx controller transmits data.
+What follows aims for better understanding how the USART hardware inside a Dx controller transmits data.
 
 ### Problem
 I'm using Arduino IDE to compile code for an unmounted AVR Dx microcontroller. The IDE uploads code to the Dx through an Arduino Nano (Classic) clone development board running a firmware that turns the Nano into a UPDI programmer. 
