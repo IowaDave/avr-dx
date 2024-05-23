@@ -52,7 +52,7 @@ Build strings in the buffer using the C/C++ ```sprintf()``` statement. Arduino I
 
 ### Solution to #3 - a Passive, Intermediary Arduino
 
-Signals emerging from a microcontroller need to pass through a "go-between" device on their way to a computer. FTDI devices cost money and require specialized driver software. A spare Arduino Uno or Nano (classic) can also serve, as follows:
+Signals emerging from a microcontroller need to pass through a "go-between" device on their way to a computer. FTDI devices cost money and require specialized driver software. A spare Arduino Uno or Nano (classic) can also serve, as follows (See Figure 1, below):
 
 * Upload a blank program onto the Arduino board. 
 
@@ -63,6 +63,9 @@ Signals emerging from a microcontroller need to pass through a "go-between" devi
 * Be sure to connect the Gnd pin of the Dx to the Arduino's Gnd pin. You can power the Dx chip from the +5V pin of the Arduino board or from some other, 5-volt source. Keep it all at 5 volts.
 
 * Plug the Arduino into the USB port of the computer.
+
+![AVR64DD28 Tx Connected to Nano Clone]({{site.baseurl}}/images/Nano-go-between.png)
+<br>**Figure 1. Nano Clone Connected to AVR64DD28 Tx-to-Tx**
 
 This setup works because the Arduino Uno or Classic Nano has on its board a device that takes the signals appearing on the Tx and Rx pins of the board and transfers them out via USB. The Arduino does this regardless of whether the signals are put onto those pins by a program running on the Arduino or (as in this case) originating somewhere else instead.
 
