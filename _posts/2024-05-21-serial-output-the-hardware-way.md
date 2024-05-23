@@ -58,11 +58,14 @@ Signals emerging from a microcontroller need to pass through a "go-between" devi
 
 This setup works because the Arduino Uno or Classic Nano has on its board a device that takes the signals appearing on the Tx and Rx pins of the board and transfers them out via USB. The Arduino does this regardless of whether the signals are put onto those pins by a program running on the Arduino or (as in this case) originating somewhere else instead.
 
-#### It was even easier than that!
+#### Whoa! Even Easier Than That!
 
 It turned out that the Arduino Nano (Classic) operating as my UPDI programmer also passes the Tx signal back to the computer, after connecting Tx of the Dx to Tx of the programmer. 
 
-It appears that firmware can remain in place on a go-between Arduino, as long as it does not interfere with the Tx pin. This is very nice, as I can keep both the programmer and the target device on a single breadboard while developing a project.
+![Programmer with Tx connected]({{site.baseurl}}/images/UPDI-Tx-Programmer.png)
+<br>**Figure 1 Nano as UPDI Programmer with a Jumper to Tx**
+
+Experiments suggest that firmware may remain in place on a go-between Arduino, as long as it does not interfere with the Tx pin. This would be very nice, as I could keep both the programmer and the target device on a single breadboard while developing a project.
 
 ### Solution to #2 - USART Direct
 
