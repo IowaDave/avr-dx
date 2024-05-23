@@ -67,7 +67,11 @@ Signals emerging from a microcontroller need to pass through a "go-between" devi
 ![AVR64DD28 Tx Connected to Nano Clone]({{site.baseurl}}/images/Nano-go-between.png)
 <br>**Figure 1. Nano Clone Connected to AVR64DD28 Tx-to-Tx**
 
-This setup works because the Arduino Uno or Classic Nano has on its board a device that takes the signals appearing on the Tx and Rx pins of the board and transfers them out via USB. The Arduino does this regardless of whether the signals are put onto those pins by a program running on the Arduino or (as in this case) originating somewhere else instead.
+This setup works because an Arduino Uno or Classic Nano has on its board a device that transfers signals between the Tx and Rx pins of the board and the USB interface. 
+
+The Arduino does this regardless of whether the signals appearing on those pins relate to a program running on the Arduino or (as in this case) somewhere else instead. 
+
+All we require of the go-between Nano is that any firmware it may have on it will not interact with its Tx and Rx pins.
 
 ### Solution to #2 - USART Direct
 
