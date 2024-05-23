@@ -5,7 +5,7 @@ title: "Serial Output the Hard(ware) Way"
 
 # Serial Output the Hard(ware) Way
 
-This article will demonstrate how to:
+This article will explain how to:
 
 * **transmit text from an unmounted AVR Dx microcontroller** to a computer using the Dx USART hardware module directly.
 <br><br>
@@ -66,15 +66,6 @@ Signals emerging from a microcontroller need to pass through a "go-between" devi
 
 This setup works because the Arduino Uno or Classic Nano has on its board a device that takes the signals appearing on the Tx and Rx pins of the board and transfers them out via USB. The Arduino does this regardless of whether the signals are put onto those pins by a program running on the Arduino or (as in this case) originating somewhere else instead.
 
-#### Whoa! Even Easier Than That!
-
-It turned out that the Arduino Nano (Classic) operating as my UPDI programmer also passes the Tx signal back to the computer, after connecting Tx of the Dx to Tx of the programmer. 
-
-![Programmer with Tx connected]({{site.baseurl}}/images/UPDI-Tx-Programmer.png)
-<br>**Figure 1. A Nano Clone as UPDI Programmer with a Jumper to Tx**
-
-Experiments suggest that firmware may remain in place on a go-between Arduino, as long as it does not interfere with the Tx pin. This would be very nice, as I could keep both the programmer and the target device on a single breadboard while developing a project.
-
 ### Solution to #2 - USART Direct
 
 The acronym stands for **U**niversal **S**ynchronous and **A**synchronous **R**eceiver and **T**ransmitter. It tells you that the thing not only receives and transmits but also knows more than one way to do it:
@@ -102,7 +93,7 @@ The datasheet lists four steps when setting up the USART for this purpose. They 
 
 **Table 1 - Set Up the USART for Asynchronous Transmission**
 
-The example program below borrows a macro and two function definitions from an example published by Microchip, Inc. on github.
+The example program below borrows a macro and two function definitions from an [example published on Github by Microchip, Inc](https://github.com/microchip-pic-avr-examples/avr128da48-usart-example).
 
 * The macro defines an inline function, ```USART_BAUD_RATE(BAUD_RATE)```, implementing the formula given in the datasheet for calculating the value to write into the BAUD rate hardware register.
 
@@ -167,7 +158,7 @@ void setup() {
   USART0.BAUD = USART_BAUD_RATE(115200);      // set BAUD rate 115200
   USART0.CTRLC = 
     USART_CHSIZE_8BIT_gc;                     // 8-bit char, no parity, 1 stop bit  
-  PORTA.DIRSET = PIN0_bm;                     // OUTPUT mode for transmit Tx) pin 
+  PORTA.DIRSET = PIN0_bm;                     // OUTPUT mode for transmit (Tx) pin 
   USART0.CTRLB = 
       USART_TXEN_bm;                          // enable the transmitter
 
