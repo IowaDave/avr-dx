@@ -28,13 +28,16 @@ I'm using Arduino IDE to compile code for an unmounted AVR Dx microcontroller. T
 
 I would like to send text strings from the Dx device back to the computer. The Dx program will need to:
 
-**1. generate the strings**;
+1. generate the strings;
 
-**2. transmit them out through the Dx controller's hardware**; and
-<br><br>Steps #1 and #2 will avoid using the ```Serial``` class methods of the IDE in the example program, as a way to focus on the hardware.
+2. transmit them out through the Dx controller's hardware; and
 
-**3. conduct the strings into the computer**.
-<br><br>Step #3 will be addressed by passing the Dx transmissions through a "go-between" Arduino Nano board for re-transmission via the Nano's USB interface.
+3. conduct the strings into the computer.
+
+Steps #1 and #2 will avoid using the ```Serial``` class methods of the IDE in the example program, as a way to focus on the hardware.
+
+Step #3 will be addressed by passing the Dx transmissions through a "go-between" Arduino Nano board for re-transmission via the Nano's USB interface.
+
 
 ### Solution to #1 - ```sprintf()```
 
