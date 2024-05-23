@@ -63,7 +63,7 @@ This setup works because the Arduino Uno or Classic Nano has on its board a devi
 It turned out that the Arduino Nano (Classic) operating as my UPDI programmer also passes the Tx signal back to the computer, after connecting Tx of the Dx to Tx of the programmer. 
 
 ![Programmer with Tx connected]({{site.baseurl}}/images/UPDI-Tx-Programmer.png)
-<br>**Figure 1 Nano as UPDI Programmer with a Jumper to Tx**
+<br>**Figure 1 Nano Clone as UPDI Programmer with a Jumper to Tx**
 
 Experiments suggest that firmware may remain in place on a go-between Arduino, as long as it does not interfere with the Tx pin. This would be very nice, as I could keep both the programmer and the target device on a single breadboard while developing a project.
 
